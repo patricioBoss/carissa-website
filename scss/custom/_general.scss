@@ -1,0 +1,14 @@
+/*********************************/
+/*             General           */
+/*===============================*/
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply text-[15px] text-black;
+}
+
+p {
+  @apply leading-relaxed;
+}
