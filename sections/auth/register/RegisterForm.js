@@ -94,7 +94,7 @@ export default function RegisterForm() {
       axios
         .post("/api/user", {
           ...values,
-          ...(ref._id ? { referer: ref._id } : {}),
+          ...(ref?._id ? { referer: ref._id } : {}),
         })
         .then(function () {
           setIsSubmitting(false);
