@@ -160,7 +160,7 @@ export const approveInvestment = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
-    return response(res, 200, "investment approved");
+    return response(res, 200, "investment approved.");
   } catch (err) {
     console.log(err);
     return response(res, 500, "failure", null);
