@@ -32,19 +32,13 @@ const sampleMailTemplate = (name = "", message) => `
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 15px 24px 15px; color: #595e64;">
-                            To reset your password, please click the button below :
-                        </td>
-                    </tr>
-
-                    <tr>
                         <td style="padding: 15px 24px 0; color: #595e64;"> ${message}
                         </td>
                     </tr>
     
                     <tr>
                         <td style="padding: 16px 8px; color: #676d74; background-color: #f8f9fc; text-align: center;">
-                            © <script>document.write(new Date().getFullYear())</script> Ethervest.
+                            © <script>document.write(new Date().getFullYear())</script> Ethervest. All Rights Reserved.
                         </td>
                     </tr>
                 </tbody>

@@ -48,7 +48,7 @@ const Logo = forwardRef(
         >
           <img
             style={size === "large" ? { width: "100%" } : { width: "70%" }}
-            src="/logo/logo-full.svg"
+            src="/logo/Logo-full.svg"
             alt="logo img"
           />
         </Box>

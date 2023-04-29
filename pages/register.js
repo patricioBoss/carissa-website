@@ -146,7 +146,7 @@ export default function Register() {
               align="center"
               sx={{ color: "text.secondary", mt: 3 }}
             >
-              By registering, I agree to SharedAsset&nbsp;
+              By registering, I agree to Ethervest&nbsp;
               <br />
               <Link href="/">
                 <Typography

@@ -19,8 +19,8 @@ let AllData = {
     {
       title: "How to Register on Ethervest",
       content: `
-    How to sign up on SharedAsset
-Sure, here's a simple step-by-step guide on how to sign up on SharedAsset:
+    How to sign up on Ethervest
+Sure, here's a simple step-by-step guide on how to sign up on Ethervest:
 <br>
 1. Open your preferred web browser and navigate to the stock investment web app's website.<br>
 2. Look for the "Sign Up" or "Register" button and click on it to start the registration process.<br>
