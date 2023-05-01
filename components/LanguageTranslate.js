@@ -39,6 +39,7 @@ const LanguageTranslate = () => {
   };
   useEffect(() => {
     if (mounted.current) {
+      console.log("translation script is added");
       var addScript = document.createElement("script");
       addScript.setAttribute(
         "src",

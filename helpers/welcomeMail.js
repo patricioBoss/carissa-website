@@ -1,4 +1,4 @@
-export default function welcomeMail(name, loginLink) {
+export default function welcomeMail(name = "", loginLink) {
   return `
   <!DOCTYPE html>
   <html lang="en" dir="ltr">
@@ -22,7 +22,7 @@ export default function welcomeMail(name, loginLink) {
               <table cellpadding="0" cellspacing="0" style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400; max-width: 600px; border: none; margin: 0 auto; border-radius: 6px; overflow: hidden; background-color: #fff; box-shadow: 0 0 3px rgba(60, 72, 88, 0.15);">
                   <thead>
                       <tr style="background-color: #4f46e5; padding: 3px 0; border: none; line-height: 68px; text-align: center; color: #fff; font-size: 24px; letter-spacing: 1px;">
-                          <th scope="col"><img style="width: 200px;" src="https://pipsville-bucket.s3.us-west-004.backblazeb2.com/Logo-full-white.svg" alt=""></th>
+                          <th scope="col"><img style="width: 200px;" src="https://pipsville-bucket.s3.us-west-004.backblazeb2.com/Logo-full-white-svg.png" alt=""></th>
                       </tr>
                   </thead>
       

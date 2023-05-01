@@ -44,8 +44,8 @@ export const createUser = async (req, res) => {
       expiresIn: "30 days",
     });
     let hostname = req.headers.host;
-    let loginLink = `http://${hostname}/login`;
-    let msg = welcomeMail(userData.firstname, loginLink);
+    let loginLink = `https://${config.domain}/login`;
+    let msg = welcomeMail(userData.firstName, loginLink);
     const sent = await sendMail(msg, "Welcome to Ethervest", userData.email);
     console.log(sent);
     if (sent) {
