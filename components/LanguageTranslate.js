@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
 import languagesList from "../utils/languagesList";
+import config from "../config/config";
 
 // const languages = [
 //   { label: "English", value: "/auto/en" },
@@ -29,10 +30,10 @@ const LanguageTranslate = () => {
     const e = evt.target.value;
     console.log(e);
     if (hasCookie("googtrans")) {
-      setCookie("googtrans", decodeURI(e));
+      setCookie("googtrans", decodeURI(e), { domain: `.${config.domain}` });
       setSelected(e);
     } else {
-      setCookie("googtrans", e);
+      setCookie("googtrans", decodeURI(e), { domain: `.${config.domain}` });
       setSelected(e);
     }
     window.location.reload();
@@ -48,8 +49,8 @@ const LanguageTranslate = () => {
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
 
-      if (hasCookie("googtrans")) {
-        setSelected(getCookie("googtrans"));
+      if (hasCookie("googtrans", { domain: `.${config.domain}` })) {
+        setSelected(getCookie("googtrans", { domain: `.${config.domain}` }));
       } else {
         setSelected("/auto/en");
       }
