@@ -13,12 +13,15 @@ const LandingLayout = ({ children, isSticky }) => {
     timeoutId.current = setTimeout(() => {
       setLoading(false);
       console.log("setLoading");
+      // eslint-disable-next-line no-undef
+      feather.replace();
     }, 6000);
     // if (!isMounted.current) {
 
     // }
     isMounted.current = true;
-
+    // eslint-disable-next-line no-undef
+    feather.replace();
     return () => {
       console.log("timeout cleared");
       clearTimeout(timeoutId.current);

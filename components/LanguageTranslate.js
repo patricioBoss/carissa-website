@@ -30,10 +30,10 @@ const LanguageTranslate = () => {
     const e = evt.target.value;
     console.log(e);
     if (hasCookie("googtrans")) {
-      setCookie("googtrans", decodeURI(e), { domain: `.${config.domain}` });
+      setCookie("googtrans", decodeURI(e), { domain: location.host });
       setSelected(e);
     } else {
-      setCookie("googtrans", decodeURI(e), { domain: `.${config.domain}` });
+      setCookie("googtrans", decodeURI(e), { domain: location.host });
       setSelected(e);
     }
     window.location.reload();
@@ -49,8 +49,8 @@ const LanguageTranslate = () => {
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
 
-      if (hasCookie("googtrans", { domain: `.${config.domain}` })) {
-        setSelected(getCookie("googtrans", { domain: `.${config.domain}` }));
+      if (hasCookie("googtrans", { domain: location.host })) {
+        setSelected(getCookie("googtrans", { domain: location.host }));
       } else {
         setSelected("/auto/en");
       }
