@@ -58,6 +58,7 @@ export default function MyApp(props) {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Home | Ethervest investment</title>
       </Head>
       <Script src="/js/easy_background.js" strategy="beforeInteractive" />
       <Script strategy="beforeInteractive" src="/js/feather.min.js" />
