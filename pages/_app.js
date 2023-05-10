@@ -49,6 +49,7 @@ MyApp.propTypes = {
   settings: PropTypes.object,
 };
 
+//there is a meta tag change
 export default function MyApp(props) {
   const { Component, pageProps, settings } = props;
 
