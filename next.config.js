@@ -4,20 +4,20 @@ const nextConfig = {
   images: {
     domains: ["https://s3-symbol-logo.tradingview.com"],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/finance/:path*",
-        // has: [
-        //   {
-        //     type: "query",
-        //     key: "symbols",
-        //   },
-        // ],
-        destination: "https://query1.finance.yahoo.com/v6/finance/:path*",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/finance/:path*",
+  //       // has: [
+  //       //   {
+  //       //     type: "query",
+  //       //     key: "symbols",
+  //       //   },
+  //       // ],
+  //       destination: "https://query1.finance.yahoo.com/v6/finance/:path*",
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;
