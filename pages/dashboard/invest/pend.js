@@ -18,7 +18,6 @@ import pageAuth from "../../../middleware/pageAuthAccess";
 import PropTypes from "prop-types";
 import serializeFields from "../../../helpers/serialize";
 import Investment from "../../../models/investment.model";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { getQuotes } from "../../../helpers/fetchers";
 
@@ -34,15 +33,43 @@ async function handler({ req }) {
       transactionId: { $exists: false },
     }).lean()
   );
+
+  const uniqueStockString =
+    [
+      ...new Set(
+        pendingInvestments.map((x) =>
+          x.stock === "usdt" || x.stock === "btc"
+            ? `${x.stock.toUpperCase()}-USD`
+            : x.stock.toUpperCase()
+        )
+      ),
+    ].join(",") ?? "NONE";
+  const stocksResponse = await getQuotes(uniqueStockString);
+  const stocksDataMap = stocksResponse.reduce((acc, stock) => {
+    acc[stock.symbol] = stock;
+    return acc;
+  }, {});
+  const allPendings = pendingInvestments.map((x) => ({
+    ...x,
+    stock:
+      stocksDataMap[
+        x.stock === "usdt" || x.stock === "btc"
+          ? `${x.stock.toUpperCase()}-USD`
+          : x.stock.toUpperCase()
+      ],
+    plan: plans[x.planId],
+  }));
+
   return {
     props: {
       user,
-      pendingInvestments,
+      pendingInvestments: allPendings,
       fallback: {
         [`/api/user/${user._id}`]: user,
       },
     },
   };
+
   // return {
   //   props: { user },
   // };
@@ -60,44 +87,9 @@ Pending.propTypes = {
   stocksDataList: PropTypes.array,
 };
 export default function Pending({ user, pendingInvestments }) {
-  const [investments, setInvestments] = useState(null);
+  const [investments, setInvestments] = useState(pendingInvestments);
   const { themeStretch } = useSettings();
-  const { data } = useSWR(
-    [
-      ...new Set(
-        pendingInvestments.map((x) =>
-          x.stock === "usdt" || x.stock === "btc"
-            ? `${x.stock.toUpperCase()}-USD`
-            : x.stock.toUpperCase()
-        )
-      ),
-    ].join(",") ?? "NONE",
-    getQuotes
-  );
-  console.log(data);
-  useEffect(() => {
-    if (data) {
-      const stocksDataMap = data.reduce((acc, stock) => {
-        acc[stock.symbol] = stock;
-        return acc;
-      }, {});
-      const allPendings = pendingInvestments.map((x) => ({
-        ...x,
-        stock:
-          stocksDataMap[
-            x.stock === "usdt" || x.stock === "btc"
-              ? `${x.stock.toUpperCase()}-USD`
-              : x.stock.toUpperCase()
-          ],
-        plan: plans[x.planId],
-      }));
-      setInvestments(allPendings);
-    }
 
-    // return () => {};
-  }, [data]);
-
-  console.log("pending", investments);
   return (
     <Page title="Pending investment">
       <Container maxWidth={themeStretch ? false : "xl"}>

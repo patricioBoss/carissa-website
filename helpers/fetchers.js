@@ -5,7 +5,7 @@ export const getUserById = (url) => axios.get(url).then((res) => res.data.data);
 
 export const getQuotes = async (quoteString) => {
   const { request } = yahooRequest();
-  const url = `/quote?symbols=${quoteString}`;
+  const url = `/finance/quote?symbols=${quoteString}`;
   const stocksResponse = await request.get(url);
 
   console.log("request", stocksResponse);
