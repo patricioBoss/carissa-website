@@ -11,14 +11,13 @@ import Layout from "../../../layouts";
 import useSettings from "../../../hooks/useSettings";
 // components
 import Page from "../../../components/Page";
-import useSWR from "swr";
 import PendingCards from "../../../components/PendingCards";
 import plans from "../../../helpers/plans";
 import pageAuth from "../../../middleware/pageAuthAccess";
 import PropTypes from "prop-types";
 import serializeFields from "../../../helpers/serialize";
 import Investment from "../../../models/investment.model";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getQuotes } from "../../../helpers/fetchers";
 
 // ----------------------------------------------------------------------
@@ -87,7 +86,7 @@ Pending.propTypes = {
   stocksDataList: PropTypes.array,
 };
 export default function Pending({ user, pendingInvestments }) {
-  const [investments, setInvestments] = useState(pendingInvestments);
+  const [investments] = useState(pendingInvestments);
   const { themeStretch } = useSettings();
 
   return (
