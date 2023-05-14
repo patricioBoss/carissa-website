@@ -187,7 +187,7 @@ export const topupInvestment = async (req, res) => {
           capital: newCapital,
           approvedDate: Date.now(),
           status: "active",
-          withDrawalDate: add(new Date(), { days: 30 }),
+          withDrawalDate: add(new Date(), { days: 5 }),
         },
         { session, new: true }
       ).exec();
@@ -245,7 +245,7 @@ export const reinvest = async (req, res) => {
             transactionId: "REI-" + uuidv4(),
             approvedDate: Date.now(),
             status: "active",
-            withDrawalDate: add(new Date(), { days: 30 }),
+            withDrawalDate: add(new Date(), { days: 5 }),
           },
         ],
         { session, new: true }

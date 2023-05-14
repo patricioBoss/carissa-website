@@ -87,6 +87,7 @@ Pending.propTypes = {
 };
 export default function Pending({ user, pendingInvestments }) {
   const [investments] = useState(pendingInvestments);
+  console.log({ investments });
   const { themeStretch } = useSettings();
 
   return (

@@ -224,7 +224,9 @@ export default function EnhancedTable({ rows, handleConfirmShow }) {
                           className=" rounded-full"
                           alt="stock icon"
                         />
-                        {row.stock.displayName ?? "Real EState"}
+                        {row.type.includes("stock")
+                          ? row.stock.longName
+                          : "Real EState"}
                       </Typography>{" "}
                     </TableCell>
                     <TableCell align="left">

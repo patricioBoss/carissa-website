@@ -72,6 +72,7 @@ function PendingCards({
     capital,
     currency,
     stock,
+    type,
   },
   user,
 }) {
@@ -390,7 +391,11 @@ function PendingCards({
                 />
               </Box>
               <Typography paddingLeft={2} align={"center"} variant="subtitle2">
-                {`${stock.displayName?.toUpperCase() ?? "Real Estate"}`}
+                {`${
+                  type.includes("stock")
+                    ? stock.displayName?.toUpperCase()
+                    : "Real Estate"
+                }`}
                 <br />
                 {`${
                   stock.financialCurrency

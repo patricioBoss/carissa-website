@@ -34,6 +34,10 @@ const InvestmentSchema = new mongoose.Schema(
       type: String,
       required: "stock symbol is needed",
     },
+    type: {
+      type: String,
+      default: "stocks",
+    },
     currency: {
       type: String,
       required: "currency type needed",

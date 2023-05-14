@@ -11,7 +11,7 @@ const Page = forwardRef(
   ({ children, title = "", meta, fallback, ...other }, ref) => (
     <>
       <Head>
-        <title>{`${title} | SharedAsset (Buy,Trade Stocks)`}</title>
+        <title>{`${title} | Ethervest (Buy,Trade Stocks,Real-Estate)`}</title>
         {meta}
       </Head>
       <SWRConfig value={{ fallback }}>

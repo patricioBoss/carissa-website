@@ -56,6 +56,7 @@ function PlanCards({
         currency,
         stock: currency,
         planId: id,
+        type: "real-estate",
       })
       .then((res) => {
         setisSubmitting(false);

@@ -10,12 +10,13 @@ import {
   FormControlLabel,
 } from "@mui/material";
 // components
-import Image from "../../components/Image";
+// import Image from "../../components/Image";
 import Iconify from "../../components/Iconify";
 import { LoadingButton } from "@mui/lab";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Image from "next/image";
 //
 
 // ----------------------------------------------------------------------
@@ -29,9 +30,11 @@ const PAYMENT_OPTIONS = [
     ],
   },
   {
-    value: "paypal",
-    title: "Pay with Paypal",
-    icons: ["https://minimal-assets-api.vercel.app/assets/icons/ic_paypal.svg"],
+    value: "btc",
+    title: "Pay with Bitcoin",
+    icons: [
+      "https://pipsville-bucket.s3.us-west-004.backblazeb2.com/btc-sm0.svg",
+    ],
   },
 ];
 
@@ -136,7 +139,13 @@ export default function PaymentMethods({ details, user }) {
                   sx={{ right: 20, top: 32 }}
                 >
                   {icons.map((icon) => (
-                    <Image key={icon} alt="logo card" src={icon} />
+                    <Image
+                      key={icon}
+                      width={38}
+                      height={38}
+                      alt="logo card"
+                      src={icon}
+                    />
                   ))}
                 </Stack>
               </OptionStyle>
