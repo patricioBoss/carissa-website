@@ -68,6 +68,10 @@ const LanguageTranslate = () => {
   useEffect(() => {
     let translateBar = document.querySelectorAll(".skiptranslate");
     document.body.style.top = 0;
+    window.addEventListener("load", () => {
+      document.body.style.top = 0;
+    });
+
     if (translateBar) {
       translateBar.forEach((element) => {
         element.style.display = "none";

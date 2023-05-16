@@ -119,8 +119,8 @@ export default function ResetPassword({ userId }) {
           <Typography variant="body2" sx={{ mt: { md: -2 } }}>
             <a
               rel="noreferrer"
-              href="https://t.me/PipsvilleCrypto_support"
-              target="_blank"
+              href="#"
+              // target="_blank"
               style={{ cursor: "pointer" }}
             >
               Need Help?
@@ -143,8 +143,7 @@ export default function ResetPassword({ userId }) {
           </Typography>
           <Typography align="center" sx={{ color: "text.secondary", mb: 15 }}>
             {" "}
-            Please enter the email address associated with your account and We
-            will email you a link to reset your password.
+            Enter your new password
           </Typography>
           <FormikProvider value={formik}>
             <Form autoComplete="off" noValidate onSubmit={handleSubmit}>

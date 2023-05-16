@@ -47,6 +47,8 @@ export default function ResetPassword() {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
+      .trim()
+      .lowercase()
       .required("Email is required"),
   });
 
@@ -83,8 +85,8 @@ export default function ResetPassword() {
           <Typography variant="body2" sx={{ mt: { md: -2 } }}>
             <a
               rel="noreferrer"
-              href="https://t.me/PipsvilleCrypto_support"
-              target="_blank"
+              href="#"
+              // target="_blank"
               style={{ cursor: "pointer" }}
             >
               Need Help?

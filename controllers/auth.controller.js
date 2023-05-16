@@ -80,7 +80,7 @@ export const reset = async (req, res) => {
       fetchedUser.firstName,
       verificationLink
     );
-    let subject = "Pipsville Reset";
+    let subject = "Ethervest Reset";
     const sent = await sendMail(msg, subject, fetchedUser.email);
     if (sent) {
       return response(res, 200, " Check Email for reset Link");
