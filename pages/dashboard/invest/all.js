@@ -37,12 +37,24 @@ async function handler({ req }) {
       )
     ),
   ].join(",");
-  const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
-      uniqueStockString ? uniqueStockString : "NONE"
-    }`
+  // const stocksResponse = await axios.get(
+  //   `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
+  //     uniqueStockString ? uniqueStockString : "NONE"
+  //   }`
+  // );
+  const stocksResponse = await axios(
+    {
+      baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+      method: "GET",
+      url: "/yahooapi/quotes",
+      params: {
+        symbols: uniqueStockString ? uniqueStockString : "NONE",
+      },
+    }
+    // `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
   );
-  const stocksDataList = await stocksResponse.data.quoteResponse.result;
+  const stocksDataList = await stocksResponse.data.data;
+  // const stocksDataList = await stocksResponse.data.quoteResponse.result;
   const stocksDataMap = stocksDataList.reduce((acc, stock) => {
     acc[stock.symbol] = stock;
     return acc;

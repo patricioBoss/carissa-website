@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const yahooRequest = () => {
-  const baseURL = process.env.NEXT_PUBLIC_YAHOO_FINANCE_API;
+  const baseURL = process.env.NEXT_PUBLIC_IMAGE_SERVER;
 
   const axiosInstance = axios.create({
     baseURL,
