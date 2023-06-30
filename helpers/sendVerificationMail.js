@@ -34,6 +34,7 @@ let transporter = nodemailer.createTransport({
 transporter.verify(function (error, success) {
   console.log("transporter initiated");
   if (error) {
+    console.log({ error });
     console.log(error.message, "verification error");
   } else {
     console.log("Server is ready to take our messages", success);
@@ -44,7 +45,7 @@ const sendMail = async (msg, subject, reciever) => {
   //2. You can configure the object however you want
   try {
     let mail = {
-      from: `"Ethervest" <${config.email}>`,
+      from: `"Carissa Barney" <${config.email}>`,
       to: reciever,
       subject: subject,
       html: msg,

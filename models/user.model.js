@@ -1,16 +1,16 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
       trim: true,
-      required: 'first name is required',
+      required: "first name is required",
     },
     lastName: {
       type: String,
       trim: true,
-      required: 'last name is required',
+      required: "last name is required",
     },
     phone: {
       type: String,
@@ -23,10 +23,10 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      unique: 'Email already exists',
+      unique: "Email already exists",
       // eslint-disable-next-line no-useless-escape
-      match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-      required: 'Email is required',
+      match: [/.+\@.+\..+/, "Please fill a valid email address"],
+      required: "Email is required",
     },
     postalCode: {
       type: Number,
@@ -39,25 +39,29 @@ const UserSchema = new mongoose.Schema(
     country: {
       type: String,
       trim: true,
-      required: 'Country is required',
+      required: "Country is required",
     },
     state: {
       type: String,
       trim: true,
-      required: 'State is required',
+      required: "State is required",
     },
     password: {
       type: String,
-      required: 'Password is required',
+      required: "Password is required",
     },
     isVerified: {
       type: Boolean,
       default: false,
     },
+    level: {
+      type: Number,
+      default: 0,
+    },
     role: {
       type: String,
-      enum: ['Admin', 'User'],
-      default: 'User',
+      enum: ["Admin", "User"],
+      default: "User",
     },
     IdImg: {
       type: String,
@@ -72,7 +76,7 @@ const UserSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      default: '/img/default.png',
+      default: "/img/default.png",
     },
     wallets: {
       usdt: {
@@ -88,7 +92,7 @@ const UserSchema = new mongoose.Schema(
     },
     referer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   },
   {
@@ -96,6 +100,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 export default User;

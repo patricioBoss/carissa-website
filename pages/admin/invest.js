@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Pagination } from "@mui/material";
 // layouts
 import Layout from "../../adminLayout/admin/adminLayout";
 // hooks
@@ -13,6 +13,7 @@ import Investment from "../../models/investment.model";
 import AdminInvestmentListtable from "../../components/adminInvestmentTable";
 import dbConnect from "../../utils/dbConnect";
 import adminPageAuth from "../../middleware/adminPageAuth";
+import { useRouter } from "next/router";
 
 // ----------------------------------------------------------------------
 
@@ -21,10 +22,15 @@ Home.getLayout = function getLayout(page) {
 };
 
 // ----------------------------------------------------------------------
-const handler = async () => {
+const handler = async (ctx) => {
   // await dbConnect();
+  const { query } = ctx;
+  const page = query.page || 1;
+  const pageSize = 20;
   const invtList = serializeFields(
     await Investment.find({})
+      .skip(pageSize * (page - 1))
+      .limit(pageSize)
       .populate({ path: "userId", select: "email _id" })
       .lean(true)
   );
@@ -32,6 +38,7 @@ const handler = async () => {
   return {
     props: {
       invtList,
+      paginationCount: Math.ceil(invtList.length / pageSize),
     },
   };
 };
@@ -41,15 +48,35 @@ Home.propTypes = {
   invtList: PropTypes.array,
 };
 
-export default function Home({ invtList }) {
-  console.log(invtList);
-  //   const theme = useTheme();
+export default function Home({ invtList, paginationCount }) {
+  const router = useRouter();
   const { themeStretch } = useSettings();
+
+  const pageHandler = (e, page) => {
+    const currentPath = router.pathname;
+    router.push({
+      pathname: currentPath,
+      query: {
+        ...router.query,
+        page,
+      },
+    });
+  };
 
   return (
     <Page title="adminUser">
       <Container maxWidth={themeStretch ? false : "xl"}>
         <AdminInvestmentListtable rows={invtList} />
+        <div className="pt-6">
+          <Pagination
+            defaultPage={Number(router.query?.page) || 1}
+            onChange={pageHandler}
+            count={paginationCount}
+            variant="outlined"
+            size="large"
+            shape="rounded"
+          />
+        </div>
       </Container>
     </Page>
   );

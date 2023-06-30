@@ -106,7 +106,7 @@ export default function Login() {
                 }),
               ]}
             >
-              Welcome Back Champ.
+              Hi, Welcome Back.
             </Typography>
             <LoginImg src="/img/login-illustration.svg" />
           </SectionStyle>
@@ -115,7 +115,7 @@ export default function Login() {
         <Container maxWidth="sm">
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Sign in to <SpanStyle>Ethervest</SpanStyle>
+              Sign in
             </Typography>
 
             <Typography sx={{ color: "text.secondary", mb: 10 }}>

@@ -6,21 +6,23 @@ import Banner from "./banner";
 const reels = [
   {
     imgUrl: "/img/real/banner/1.png",
-    title: "Invest in Real Estate with Ethervest",
+    title:
+      "Achieve Your Financial Goals with Carissa Barney's Wealth Management Services",
     paragraph:
-      "Ethervest offers a wide range of carefully selected investment properties that allow you to diversify and maximize your returns. With over 4,000 properties available, investing in real estate has never been easier.",
+      "Carissa Barney offers a wide range of carefully tailored wealth management services that allow you to diversify and maximize your returns. With her expertise, investing in your financial future has never been easier.",
   },
   {
     imgUrl: "/img/real/banner/2.png",
-    title: "Unlock Your Wealth with Real Estate Investment",
+    title:
+      "Unlock Your Wealth with Carissa Barney's Wealth Management Strategies",
     paragraph:
-      "Real estate investment is a proven way to build long-term wealth and secure your financial future. Ethervest offers access to the largest volume of UK investment properties at favorable exchange rates.",
+      "Wealth management is a proven way to build long-term financial security and achieve your goals. Carissa Barney offers access to personalized investment strategies and a comprehensive range of services to help you unlock your wealth potential.",
   },
   {
     title:
-      "Unlock Your Wealth with Ethervest's Real Estate Investment Opportunities",
+      "Unlock Your Wealth with Carissa Barney's Expert Wealth Management Services",
     paragraph:
-      "Experience high returns and hassle-free investing with our diverse range of UK property investments. Join now!",
+      "Experience high returns and hassle-free financial planning with Carissa Barney's diverse range of wealth management solutions. Join now and take control of your financial future!",
 
     imgUrl: "/img/real/banner/3.png",
   },

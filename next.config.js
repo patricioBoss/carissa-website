@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["https://s3-symbol-logo.tradingview.com"],
+    domains: [
+      "https://s3-symbol-logo.tradingview.com",
+      "bd-piano-live.mystagingwebsite.com",
+    ],
   },
   // async rewrites() {
   //   return [

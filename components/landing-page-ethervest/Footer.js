@@ -23,7 +23,7 @@ const Footer = () => {
                     achieve their financial goals through personalized
                     investment solutions and exceptional service.
                   </p>
-                  <LanguageTranslate />
+                  {/* <LanguageTranslate /> */}
                   <ul className="list-none mt-6">
                     {/* <li className="inline"><a href="https://1.envato.market/techwind" target="_blank" className="btn btn-icon btn-sm border border-gray-800 rounded-md hover:border-indigo-600 dark:hover:border-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-600"><i className="uil uil-shopping-cart align-middle" title="Buy Now"></i></a></li>
                                 <li className="inline"><a href="https://dribbble.com/shreethemes" target="_blank" className="btn btn-icon btn-sm border border-gray-800 rounded-md hover:border-indigo-600 dark:hover:border-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-600"><i className="uil uil-dribbble align-middle" title="dribbble"></i></a></li>

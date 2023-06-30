@@ -18,72 +18,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <meta charSet="utf-8" />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/logo/logo-single.svg"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/logo/logo-single.svg"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/logo/logo-single.svg"
-          />
-          <link
-            href="/icons/@iconscout/unicons/css/line.css"
-            type="text/css"
-            rel="stylesheet"
-          />
-          <meta name="theme-color" content={palette.light.primary.main} />
-          <link rel="manifest" href="/manifest.json" />
-
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-
-          <meta
-            name="title"
-            content="Ethervest - Invest in Real Estate, Stocks, and Cryptocurrencies"
-          />
-          <meta
-            name="description"
-            content=" Ethervest is a leading online investment platform that offers access to a wide range of investment opportunities, including real estate, stocks, and cryptocurrencies."
-          />
-          <meta
-            name="keywords"
-            content="Real estate investment,
-            Cryptocurrency investment,
-            Stock market investment,
-            Investment opportunities,
-            Portfolio diversification,
-            Investment platform,
-            Global investments,
-            Local investments,
-            Property management,
-            Crypto trading,
-            Investment funds,
-            Fixed returns,
-            High-yield investments,
-            Risk management,
-            Investment analysis,
-            Market trends,
-            Financial planning,
-            Investment advice,
-            Investment strategies,
-            Investment performance"
-          />
-          <meta name="author" content="Ethervest investment limited" />
-        </Head>
+        <Head />
 
         <body>
           <Main />

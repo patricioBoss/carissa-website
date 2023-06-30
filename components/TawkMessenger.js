@@ -10,8 +10,8 @@ export default function TawkMessenger() {
 
   return (
     <TawkMessengerReact
-      propertyId="643c36a231ebfa0fe7f89fee"
-      widgetId="1gu5jarc0"
+      propertyId="648fb3b9cc26a871b0235545"
+      widgetId="1h38lc3i9"
       ref={tawkMessengerRef}
     />
   );

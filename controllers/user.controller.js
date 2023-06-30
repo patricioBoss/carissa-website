@@ -8,6 +8,8 @@ import bcrypt from "bcrypt";
 import emailTemplate from "../helpers/emailTemplate";
 import sampleMailTemplate from "../helpers/sampleMailTemplate";
 import welcomeMail from "../helpers/welcomeMail";
+import Investment from "../models/investment.model";
+import Withdrawal from "../models/withdrawal.model";
 
 export const getUsers = async (req, res) => {
   try {
@@ -43,7 +45,6 @@ export const createUser = async (req, res) => {
     const token = await jwtSign({ user: savedUser._id }, config.jwtSecret, {
       expiresIn: "30 days",
     });
-    let hostname = req.headers.host;
     let loginLink = `https://${config.domain}/login`;
     let msg = welcomeMail(userData.firstName, loginLink);
     const sent = await sendMail(msg, "Welcome to Ethervest", userData.email);
@@ -126,7 +127,10 @@ export const deleteUser = async (req, res) => {
         message: "User not found",
       });
     } else {
-      const deletedUser = await User.deleteOne({ _id: userId });
+      const deletedUser = await User.deleteOne({ _id: userId }).exec();
+      await Transaction.deleteMany({ userId }).exec();
+      await Investment.deleteMany({ userId }).exec();
+      await Withdrawal.deleteMany({ userId }).exec();
 
       if (deletedUser) {
         response(res, 200, "user deleted successfully", null);
@@ -307,7 +311,8 @@ export const sendPublicMails = async (req, res) => {
     );
   }
   console.log({ fetchedUser });
-  let msg = sampleMailTemplate(fetchedUser.firstName, message);
+  let loginLink = `https://${config.domain}/login`;
+  let msg = sampleMailTemplate(fetchedUser.firstName, loginLink, message);
   try {
     const sent = await sendMail(msg, subject, email);
     console.log(sent);

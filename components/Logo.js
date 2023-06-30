@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { forwardRef } from "react";
 import Link from "next/link";
 // @mui
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ const Logo = forwardRef(
                 ? { width: "100%", height: "100%" }
                 : { width: "70%", height: "70%" }
             }
-            src="/logo/logo-single.svg"
+            src="/logo/logo.svg"
             alt="logo img"
           />
         </Box>
@@ -48,7 +48,7 @@ const Logo = forwardRef(
         >
           <img
             style={size === "large" ? { width: "100%" } : { width: "70%" }}
-            src="/logo/Logo-full.svg"
+            src="/logo/logo.svg"
             alt="logo img"
           />
         </Box>

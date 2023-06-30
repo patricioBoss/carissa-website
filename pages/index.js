@@ -1,19 +1,21 @@
 // ----------------------------------------------------------------------
 
 import dynamic from "next/dynamic";
-import Hero from "../components/landing-page/Hero.js";
-import LandingAbout from "../components/landing-page/LandingAbout.js";
-import WorkProcess from "../components/landing-page/WorkProcess.js";
-import OurIndustries from "../components/landing-page/OurIndustries.js";
-import StatsSection from "../components/landing-page-components/StatsSection";
-import GetStated from "../components/landing-page/GetStated.js";
-import Testimonials from "../components/landing-page/Testimonials.js";
-import ContactUsCTA from "../components/landing-page/ContactUsCTA.js";
+import Hero from "../components/landing-pages-main/Hero";
+import Testimonials from "../components/landing-pages-main/Testimonials.js";
 import LandingLayout from "../components/landing-layout/LandingLayout.js";
 import Script from "next/script.js";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import axios from "axios";
+import AboutSection from "../components/landing-pages-main/AboutSection";
+import Services, {
+  PortfolioCTA,
+} from "../components/landing-pages-main/Services";
+import BlogList1 from "../components/landing-pages-main/BlogList1";
+import { getNeededInfo } from "../utils/settings";
+import MorganBlogs from "../components/landing-pages-main/MorganBlogs";
+import CTAsection from "../components/landing-pages-main/CTAsection";
 const TickerTape = dynamic(
   () => import("react-ts-tradingview-widgets").then((w) => w.TickerTape),
   {
@@ -64,7 +66,7 @@ const tapeSymbol = [
   },
 ];
 
-export default function Index() {
+export default function Index({ list }) {
   const mounted = useRef(true);
   const router = useRouter();
   useEffect(() => {
@@ -88,15 +90,14 @@ export default function Index() {
 
   return (
     <>
-      {/* <Navbar /> */}
       <Hero />
-      <LandingAbout />
-      <WorkProcess />
-      <StatsSection />
-      <OurIndustries />
-      <GetStated />
+      <AboutSection />
+      <Services />
+      <PortfolioCTA />
+      <BlogList1 list={list} />
+      <MorganBlogs />
+      <CTAsection />
       <Testimonials />
-      <ContactUsCTA />
       {router.pathname === "/" && (
         <Script>
           {`
@@ -115,4 +116,29 @@ export default function Index() {
 
 Index.getLayout = function getLayout(page) {
   return <LandingLayout>{page}</LandingLayout>;
+};
+
+//https://bd-piano-live.mystagingwebsite.com/wp-json/wp/v2/posts?include=535495,535506,535510
+export const getStaticProps = async () => {
+  try {
+    const { data } = await axios({
+      baseURL: "https://bd-piano-live.mystagingwebsite.com",
+      method: "GET",
+      url: "/wp-json/wp/v2/posts",
+      params: {
+        include: "535495,535506,535510",
+      },
+    });
+
+    return {
+      props: {
+        list: data.map((articule) => getNeededInfo(articule)),
+      },
+      revalidate: 5 * 60,
+    };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
 };

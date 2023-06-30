@@ -24,6 +24,7 @@ import Label from "../../../components/Label";
 import ComingSoonModal from "../../../components/CommingSoonModal";
 import { useState } from "react";
 import { getUserById } from "../../../helpers/fetchers";
+import Image from "next/image";
 
 // ----------------------------------------------------------------------
 
@@ -118,6 +119,11 @@ export default function DashboardHeader({
               />
             </Badge>
           </IconButton>
+        </div>
+        <div className="mr-3 sm:mr-6">
+          <div className=" w-8 h-8 rounded font-inter border-2 border-blue-500 font-extrabold text-blue-500 text-base flex justify-center items-center">
+            L {userData?.level}
+          </div>
         </div>
 
         <div className="mr-4 sm:mr-12">

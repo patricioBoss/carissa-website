@@ -29,6 +29,8 @@ import Iconify from "./Iconify";
 import MenuPopover from "./MenuPopover";
 import { CgMoreVertical } from "react-icons/cg";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import DeleteUserModal from "./DeleteUserModal";
+import UserDetailsModal from "./userDetailsModal";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -135,10 +137,8 @@ function EnhancedTableHead(props) {
 
 EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 EnhancedTable.propTypes = {
   rows: PropTypes.array.isRequired,
@@ -149,6 +149,9 @@ export default function EnhancedTable({ rows }) {
     rows.map((x) => ({ ...x, loading: false }))
   );
   const [order, setOrder] = React.useState("asc");
+  const [open, setOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
   const [orderBy, setOrderBy] = React.useState("firstName");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -159,7 +162,14 @@ export default function EnhancedTable({ rows }) {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
+  const handleDeleteModal = (user) => {
+    setCurrentUser(user);
+    setOpen(true);
+  };
+  const handleDetailsModal = (user) => {
+    setCurrentUser(user);
+    setDetailsOpen(true);
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -201,7 +211,7 @@ export default function EnhancedTable({ rows }) {
           })
         );
         // console.log(err.response?.data.message);
-        setLoading(false);
+
         if (err.response) {
           toast.error("error, pls try again");
         } else {
@@ -216,6 +226,12 @@ export default function EnhancedTable({ rows }) {
 
   return (
     <Box sx={{ width: "100%" }}>
+      <DeleteUserModal open={open} setOpen={setOpen} user={currentUser} />
+      <UserDetailsModal
+        open={detailsOpen}
+        setOpen={setDetailsOpen}
+        user={currentUser}
+      />
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
@@ -257,7 +273,12 @@ export default function EnhancedTable({ rows }) {
                       </Label>
                     </TableCell>
                     <TableCell align="left">
-                      <MoreMenuButton user={row} handleVerify={handleVerify} />
+                      <MoreMenuButton
+                        user={row}
+                        handleVerify={handleVerify}
+                        handleModal={() => handleDeleteModal(row)}
+                        handleDetails={() => handleDetailsModal(row)}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -360,7 +381,7 @@ function AddBonus({ user }) {
   );
 }
 
-function MoreMenuButton({ user, handleVerify }) {
+function MoreMenuButton({ user, handleVerify, handleModal, handleDetails }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -400,6 +421,7 @@ function MoreMenuButton({ user, handleVerify }) {
           },
         }}
       >
+        <MenuItem onClick={handleDetails}>View Details</MenuItem>
         <MenuItem>
           {!user.isVerified ? (
             <LoadingButton
@@ -415,7 +437,7 @@ function MoreMenuButton({ user, handleVerify }) {
         </MenuItem>
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem sx={{ color: "error.main" }}>
+        <MenuItem sx={{ color: "error.main" }} onClick={handleModal}>
           <TrashIcon className=" mr-2 w-[20px] h-[20px]" />
           Delete
         </MenuItem>

@@ -6,11 +6,24 @@ import add from "date-fns/add";
 import plans from "../helpers/plans";
 import uuidv4 from "../utils/uuidv4";
 import getNextPlanId from "../utils/getNextPlanId";
+import config from "../config/config";
+import sampleMailTemplate from "../helpers/sampleMailTemplate";
+import { fCurrency } from "../utils/formatNumber";
+import sendMail from "../helpers/sendVerificationMail";
 
 export const getInvestments = async (req, res) => {
   const { _id } = req.profile;
   try {
     const allInvestments = await Investment.find({ userId: _id }).exec();
+
+    return response(res, 200, "success", allInvestments);
+  } catch (err) {
+    return response(res, 500, "server error", err.message);
+  }
+};
+export const getAllInvestments = async (req, res) => {
+  try {
+    const allInvestments = await Investment.find({}).exec();
 
     return response(res, 200, "success", allInvestments);
   } catch (err) {
@@ -50,12 +63,20 @@ export const invest = async (req, res) => {
 export const updateInvt = async (req, res) => {
   try {
     const invtId = req.query.investmentId;
+    const profile = req.profile;
+    let loginLink = `https://${config.domain}/login`;
 
     console.log(req.investment);
     let invest = await Investment.findByIdAndUpdate(invtId, req.body, {
       new: true,
     });
-
+    const message = `${profile.firstName}, your ${
+      plans[invest.planId].name
+    } investment plan of ${fCurrency(
+      invest.capital
+    )} is pending and awaiting approval. <br/> All pending investment will be approved within the next 24 hours`;
+    let msg = sampleMailTemplate(profile.firstName, loginLink, message);
+    const sent = await sendMail(msg, "Investment Update", profile.email);
     return response(res, 200, "success", invest);
   } catch (err) {
     return response(res, 500, "failure", err);
@@ -88,7 +109,8 @@ export const getInvestmentDetail = async (req, res) => {
 
 export const attachInvestment = async (req, res, next) => {
   const { investmentId } = req.query;
-
+  const { query, params } = req;
+  console.log({ query, params });
   try {
     const investment = await Investment.findById(investmentId).lean();
     if (investment) {
@@ -105,6 +127,8 @@ export const attachInvestment = async (req, res, next) => {
 export const approveInvestment = async (req, res) => {
   const investmentId = req.investment._id;
   console.log("this is from approveInvestment", investmentId);
+  const profile = req.profile;
+  let loginLink = `https://${config.domain}/login`;
   try {
     const session = await req.db.startSession();
     await session.withTransaction(async () => {
@@ -118,6 +142,14 @@ export const approveInvestment = async (req, res) => {
         { session, new: true }
       ).exec();
 
+      const message = `${profile.firstName}, your ${
+        plans[invest.planId].name
+      } investment plan of ${fCurrency(
+        invest.capital
+      )} has been approved, enjoy daily rio on investment`;
+      let msg = sampleMailTemplate(profile.firstName, loginLink, message);
+
+      await sendMail(msg, "Investment Update", profile.email);
       let referUser = await User.findByIdAndUpdate(
         req.profile.referer,
         {
@@ -170,6 +202,9 @@ export const approveInvestment = async (req, res) => {
 export const topupInvestment = async (req, res) => {
   const investmentId = req.investment._id;
   // const planId = req.investment.planId;
+  const invtId = req.query.investmentId;
+  const profile = req.profile;
+  let loginLink = `https://${config.domain}/login`;
   const accountBalance = req.profile.accountBalance;
   const userId = req.profile._id;
   const amount = req.investment.capital;
@@ -182,7 +217,7 @@ export const topupInvestment = async (req, res) => {
       const investment = await Investment.findByIdAndUpdate(
         investmentId,
         {
-          planId: getNextPlanId(newCapital).id,
+          planId: getNextPlanId(newCapital).id - 1,
           transactionId: "TOP-" + uuidv4(),
           capital: newCapital,
           approvedDate: Date.now(),
@@ -223,6 +258,13 @@ export const topupInvestment = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
+    const message = `${
+      profile.firstName
+    }, you have topped up your investment your ${
+      plans[req.investment.planId].name
+    } investment plan of ${fCurrency(amount)} to ${fCurrency(newCapital)}`;
+    let msg = sampleMailTemplate(profile.firstName, loginLink, message);
+    const sent = await sendMail(msg, "Investment Update", profile.email);
     return response(res, 200, "top up successful");
   } catch (err) {
     console.log(err);
@@ -241,7 +283,7 @@ export const reinvest = async (req, res) => {
           {
             ...req.body,
             userId: userId,
-            planId: getNextPlanId(req.body.capital),
+            planId: getNextPlanId(req.body.capital).id - 1,
             transactionId: "REI-" + uuidv4(),
             approvedDate: Date.now(),
             status: "active",

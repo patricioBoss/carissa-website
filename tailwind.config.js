@@ -18,7 +18,8 @@ module.exports = {
       lg_992: "992px",
     },
     fontFamily: {
-      body: ["Poppins", "sans-serif"],
+      body: ["Karla", "sans-serif"],
+      inter: ["inter", "sans-serif"],
     },
     container: {
       center: true,
@@ -27,7 +28,7 @@ module.exports = {
         sm: "1rem",
         lg: "45px",
         xl: "5rem",
-        "2xl": "13rem",
+        "2xl": "11rem",
       },
     },
     extend: {
@@ -36,7 +37,15 @@ module.exports = {
         black: "#161c2d",
         "dark-footer": "#192132",
       },
-
+      animation: {
+        "rotate-center": "rotate-center 7s linear infinite both",
+        "bounce-out": "new-bounce-out 0.4s both",
+        "bounce-in": "new-bounce-in 0.4s both",
+        "slide-in-bottom":
+          "slide-in-bottom 0.7s cubic-bezier(0.165, 0.840, 0.440, 1.000) both",
+        "fade-out-bottom":
+          "fade-in-bottom 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) reverse both",
+      },
       boxShadow: {
         sm: "0 2px 4px 0 rgb(60 72 88 / 0.15)",
         DEFAULT: "0 0 3px rgb(60 72 88 / 0.15)",

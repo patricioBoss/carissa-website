@@ -78,6 +78,16 @@ export const approveWithdrawal = async (req, res) => {
   }
 };
 
+export const deleteWithdrawal = async (req, res) => {
+  const { _id } = req.withdrawal;
+  try {
+    await Withdrawal.deleteOne({ _id });
+    return response(res, 200, "withdrawal deleted.", null);
+  } catch (err) {
+    return response(res, 500, "server error", err.message);
+  }
+};
+
 export const getWithdrawalById = async (req, res, next) => {
   const { withdrawId } = req.query;
   try {

@@ -4,12 +4,14 @@ import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import {
   Table,
-  Button,
   TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableContainer,
+  MenuItem,
+  Divider,
+  IconButton,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 // utils
@@ -20,6 +22,9 @@ import PropTypes from "prop-types";
 import Label from "./Label";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import MenuPopover from "./MenuPopover";
+import { CgMoreVertical } from "react-icons/cg";
 // _mock_
 // import { _appInvoices } from '../../.../_mock';
 // components
@@ -30,20 +35,51 @@ AppNewInvoice.propTypes = {
 
 export default function AppNewInvoice({ rows }) {
   const theme = useTheme();
-  const [loading, setLoading] = useState(false);
-
+  const [currentInvt, setCurrentInvt] = useState({});
+  const [open, setOpen] = useState(false);
+  const [list, setList] = useState(
+    rows.map((x) => ({
+      ...x,
+      loading: false,
+    }))
+  );
+  const handleDelete = (investment) => {
+    setCurrentInvt(investment);
+    setOpen(true);
+  };
   const handleApproval = (row) => {
     const { userId, _id } = row;
-    setLoading(true);
+    setList((x) =>
+      x.map((x) => {
+        return {
+          ...x,
+          loading: x._id === _id,
+        };
+      })
+    );
     axios
       .get(`/api/user/${userId._id}/withdraw/${_id}`)
       .then((res) => {
-        setLoading(false);
+        setList((x) =>
+          x.map((x) => {
+            return {
+              ...x,
+              loading: false,
+            };
+          })
+        );
         toast.success(res.data.message);
       })
       .catch((err) => {
         // console.log(err.response?.data.message);
-        setLoading(false);
+        setList((x) =>
+          x.map((x) => {
+            return {
+              ...x,
+              loading: false,
+            };
+          })
+        );
         if (err.response) {
           toast.error("error, pls try again");
         } else {
@@ -68,7 +104,7 @@ export default function AppNewInvoice({ rows }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {list.map((row) => (
               <TableRow key={row._id}>
                 <TableCell>{row._id}</TableCell>
                 <TableCell>{row.currency}</TableCell>
@@ -89,12 +125,11 @@ export default function AppNewInvoice({ rows }) {
                   </Label>
                 </TableCell>
                 <TableCell>
-                  <LoadingButton
-                    loading={loading}
-                    onClick={() => handleApproval(row)}
-                  >
-                    <span> Approve withdrawal </span>
-                  </LoadingButton>
+                  <MoreMenuButton
+                    handleActive={handleApproval}
+                    row={row}
+                    handleDeleteModal={handleDelete}
+                  />
                 </TableCell>
               </TableRow>
             ))}
@@ -102,6 +137,78 @@ export default function AppNewInvoice({ rows }) {
         </Table>
       </TableContainer>
     </Scrollbar>
+  );
+}
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+function MoreMenuButton({ row, handleActive, handleDeleteModal }) {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
+  const ICON = {
+    mr: 2,
+    width: 20,
+    height: 20,
+  };
+
+  return (
+    <>
+      <IconButton size="large" onClick={handleOpen}>
+        <CgMoreVertical width={20} height={20} />
+      </IconButton>
+
+      <MenuPopover
+        open={Boolean(open)}
+        anchorEl={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        arrow="right-top"
+        sx={{
+          mt: -0.5,
+          width: 160,
+          "& .MuiMenuItem-root": {
+            px: 1,
+            typography: "body2",
+            borderRadius: 0.75,
+          },
+        }}
+      >
+        <MenuItem>
+          <LoadingButton
+            onClick={() => handleActive(row)}
+            loading={row.loading}
+            variant="contained"
+            color="success"
+          >
+            <span>Approve withdrawal </span>
+          </LoadingButton>
+        </MenuItem>
+        <Divider sx={{ borderStyle: "dashed" }} />
+
+        <MenuItem sx={{ color: "error.main" }} onClick={handleDeleteModal}>
+          <TrashIcon className=" mr-2 w-[20px] h-[20px]" />
+          Delete
+        </MenuItem>
+      </MenuPopover>
+    </>
   );
 }
 

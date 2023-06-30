@@ -1,5 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -39,7 +40,7 @@ const login = () => {
       .finally(() => setIsSubmitting(false));
   };
   return (
-    <section className="md:h-screen py-36 flex items-center bg-indigo-600 bg-no-repeat bg-center">
+    <section className="md:h-screen py-36 flex items-center bg-[#3182c1] bg-no-repeat bg-center">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
       <div className="container">
         <div className="flex justify-center">
@@ -51,10 +52,10 @@ const login = () => {
                 alt=""
               />
             </a>
-            <h5 className="my-6 text-xl font-semibold">Admin Login</h5>
+            <h5 className="my-6 font-bold text-2xl">Admin Login</h5>
             <form className="text-left" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1">
-                <div className="mb-4">
+                <div className="mb-4 flex flex-col">
                   <label className="font-semibold" htmlFor="LoginEmail">
                     Email Address:
                   </label>
@@ -63,12 +64,12 @@ const login = () => {
                     type="email"
                     onChange={handleChange}
                     required
-                    className="form-input mt-3 text-black"
-                    placeholder="name@example.com"
+                    className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus-within:outline-none focus:ring-inset focus:ring-[#428bc3] sm:text-sm sm:leading-6 mt-3"
+                    placeholder="Enter Email"
                   />
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 flex flex-col">
                   <label className="font-semibold" htmlFor="LoginPassword">
                     Password:
                   </label>
@@ -76,16 +77,16 @@ const login = () => {
                     type="password"
                     onChange={handleChange}
                     name="password"
-                    className="form-input mt-3 text-black"
-                    placeholder="Password:"
+                    className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus-within:outline-none focus:ring-inset focus:ring-[#428bc3] sm:text-sm sm:leading-6 mt-3"
+                    placeholder="Enter Password"
                   />
                 </div>
 
                 <div className="flex justify-between mb-4">
                   <p className="text-slate-400 mb-0">
-                    <a href="auth-re-password.html" className="text-slate-400">
+                    <Link href="/reset-password" className="text-slate-400">
                       Forgot password ?
-                    </a>
+                    </Link>
                   </p>
                 </div>
 

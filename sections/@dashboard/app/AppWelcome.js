@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import dashboardImg from "../../../public/img/dashboard-illustration.svg";
+import dashboardImg from "../../../public/img/dashboard-image.png";
+import dashboardImg2 from "../../../public/img/dashboard-image-2.png";
 // @mui
 import { styled } from "@mui/material/styles";
-import { Typography, Button, Card, CardContent } from "@mui/material";
+import { Typography, Button, Card, CardContent, Box } from "@mui/material";
 import { SeoIllustration } from "../../../assets";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -18,7 +19,22 @@ const RootStyle = styled(Card)(({ theme }) => ({
     display: "flex",
     textAlign: "left",
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
+  },
+}));
+const MyImage = styled(Image)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("md")]: {
+    display: "block",
+    // justifyContent: "space-between",
+  },
+}));
+const MyImage2 = styled(Image)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("md")]: {
+    display: "block",
+    width: "90%",
+    // justifyContent: "space-between",
   },
 }));
 
@@ -33,6 +49,7 @@ export default function AppWelcome({ displayName }) {
   return (
     <RootStyle>
       <CardContent
+        className=" flex-1"
         sx={{
           p: { md: 0 },
           pl: { md: 5 },
@@ -48,7 +65,7 @@ export default function AppWelcome({ displayName }) {
           variant="body2"
           sx={{ pb: { xs: 3, xl: 3 }, maxWidth: 480, mx: "auto" }}
         >
-          {`Grow your funds with shared asset's best portfolio, we guarantee risk free trading.`}
+          {`Grow your funds with a diverse array of the best portfolios. We guarantee risk-free trading.`}
         </Typography>
 
         <Button
@@ -58,14 +75,24 @@ export default function AppWelcome({ displayName }) {
           View Stocks
         </Button>
       </CardContent>
-      <div className=" flex justify-center">
-        <Image
+      <Box
+        sx={{
+          width: { xs: "100%", md: "270px" },
+          height: { xs: "190px", md: "100%" },
+        }}
+        className=" relative flex md:h-full "
+      >
+        <MyImage
           src={dashboardImg}
-          height={250}
-          className=" "
+          className=" absolute left-0 bottom-0"
           alt="dashboard-illustration"
         />
-      </div>
+        <MyImage2
+          src={dashboardImg2}
+          className=" absolute bottom-0 left-1/2 -translate-x-1/2"
+          alt="dashboard-illustration"
+        />
+      </Box>
 
       {/* <SeoIllustration
         sx={{

@@ -16,14 +16,21 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import { Divider, IconButton, MenuItem, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import plans from "../helpers/plans";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Scrollbar from "./Scrollbar";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { CgMoreVertical } from "react-icons/cg";
+import MenuPopover from "./MenuPopover";
+import DeleteInvestmentModal from "./DeleteInvestmentModal";
 
 export default function InvestmentTable({ rows }) {
+  const [open, setOpen] = useState(false);
+  const [currentInvt, setCurrentInvt] = useState({});
+
   const [invtList, setInvList] = useState(
     rows.map((x) => ({
       ...x,
@@ -86,6 +93,10 @@ export default function InvestmentTable({ rows }) {
       });
   };
 
+  const handleDelete = (investment) => {
+    setCurrentInvt(investment);
+    setOpen(true);
+  };
   // const headCells = [
   //   'ID',
   //   'Date',
@@ -101,72 +112,73 @@ export default function InvestmentTable({ rows }) {
   // ];
 
   return (
-    <Scrollbar>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {headCells.map((header) => (
-                <TableCell key={header}>{header}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!!invtList.length &&
-              invtList.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="left">{row._id.slice(0, 6)}</TableCell>
-                  <TableCell align="left">{fDate(row.createdAt)}</TableCell>
-                  <TableCell align="left">{row.stock}</TableCell>
-                  <TableCell align="left">{row.transactionId}</TableCell>
-                  <TableCell align="left">{row.capital}</TableCell>
-                  <TableCell align="left">{row.userId.email}</TableCell>
+    <>
+      {" "}
+      <DeleteInvestmentModal
+        open={open}
+        setOpen={setOpen}
+        investment={currentInvt}
+      />
+      <Scrollbar>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {headCells.map((header) => (
+                  <TableCell key={header}>{header}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {!!invtList.length &&
+                invtList.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row._id.slice(0, 6)}</TableCell>
+                    <TableCell align="left">{fDate(row.createdAt)}</TableCell>
+                    <TableCell align="left">{row.stock}</TableCell>
+                    <TableCell align="left">{row.transactionId}</TableCell>
+                    <TableCell align="left">{row.capital}</TableCell>
+                    <TableCell align="left">{row.userId.email}</TableCell>
 
-                  <TableCell align="left">
-                    {plans[row.planId]
-                      ? fCurrency(
-                          (plans[row.planId].interest / 100) * row.capital
-                        )
-                      : "No plan yet"}
-                  </TableCell>
-                  <TableCell align="left">{row.daysCount}</TableCell>
-                  <TableCell align="left">
-                    <Label
-                      variant={
-                        theme.palette.mode === "light" ? "ghost" : "filled"
-                      }
-                      color={
-                        (row.status === "pending" && "warning") ||
-                        (row.status === "ended" && "error") ||
-                        "success"
-                      }
-                    >
-                      {sentenceCase(row.status)}
-                    </Label>
-                  </TableCell>
-                  <TableCell align="center">
-                    {row.status === "pending" ? (
-                      <LoadingButton
-                        onClick={() => handleActive(row)}
-                        loading={row.loading}
-                        variant="contained"
-                        color="success"
+                    <TableCell align="left">
+                      {plans[row.planId]
+                        ? fCurrency(
+                            (plans[row.planId].interest / 100) * row.capital
+                          )
+                        : "No plan yet"}
+                    </TableCell>
+                    <TableCell align="left">{row.daysCount}</TableCell>
+                    <TableCell align="left">
+                      <Label
+                        variant={
+                          theme.palette.mode === "light" ? "ghost" : "filled"
+                        }
+                        color={
+                          (row.status === "pending" && "warning") ||
+                          (row.status === "ended" && "error") ||
+                          "success"
+                        }
                       >
-                        <span>Approve investment</span>
-                      </LoadingButton>
-                    ) : (
-                      <AddActive investment={row} />
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Scrollbar>
+                        {sentenceCase(row.status)}
+                      </Label>
+                    </TableCell>
+                    <TableCell align="center">
+                      <MoreMenuButton
+                        row={row}
+                        handleActive={handleActive}
+                        handleDeleteModal={() => handleDelete(row)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Scrollbar>
+    </>
   );
 }
 
@@ -242,5 +254,70 @@ function AddActive({ investment }) {
         </Box>
       </Modal>
     </div>
+  );
+}
+
+function MoreMenuButton({ row, handleActive, handleDeleteModal }) {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
+  const ICON = {
+    mr: 2,
+    width: 20,
+    height: 20,
+  };
+
+  return (
+    <>
+      <IconButton size="large" onClick={handleOpen}>
+        <CgMoreVertical width={20} height={20} />
+      </IconButton>
+
+      <MenuPopover
+        open={Boolean(open)}
+        anchorEl={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        arrow="right-top"
+        sx={{
+          mt: -0.5,
+          width: 160,
+          "& .MuiMenuItem-root": {
+            px: 1,
+            typography: "body2",
+            borderRadius: 0.75,
+          },
+        }}
+      >
+        <MenuItem>
+          {row.status === "pending" ? (
+            <LoadingButton
+              onClick={() => handleActive(row)}
+              loading={row.loading}
+              variant="contained"
+              color="success"
+            >
+              <span>Approve investment</span>
+            </LoadingButton>
+          ) : (
+            <AddActive investment={row} />
+          )}
+        </MenuItem>
+        <Divider sx={{ borderStyle: "dashed" }} />
+
+        <MenuItem sx={{ color: "error.main" }} onClick={handleDeleteModal}>
+          <TrashIcon className=" mr-2 w-[20px] h-[20px]" />
+          Delete
+        </MenuItem>
+      </MenuPopover>
+    </>
   );
 }

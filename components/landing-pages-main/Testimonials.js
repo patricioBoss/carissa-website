@@ -6,63 +6,63 @@ const reviews = [
   {
     title: "It is a Game-changer.",
     img: "/img/Miko.png",
-    body: '"Ethervest has been a game-changer for me. As someone who always wanted to invest in US stocks but found the process complicated, this app has made it so easy."',
-    author: "CrazyInvestor",
+    body: '"Carissa Barney\'s expertise in wealth management has been invaluable to me. She provided personalized guidance and helped me create a solid retirement plan. I feel confident and secure in my financial future." ',
+    author: " Robert L",
     rating: 4,
   },
   {
     title: "Outsanding",
     img: "/img/Ashley Rodriguez.jpg",
-    body: "I was hesitant to invest in real estate, but Ethervest made it easy and profitable. Their team provided me with excellent market insight and helped me identify opportunities that fit my budget and investment goals.",
+    body: "Carissa Barney understands my financial goals and has consistently provided me with well-informed investment advice. Her professionalism and attention to detail have made a significant positive impact on my portfolio.",
     author: "Ashley R",
     rating: 4,
   },
   {
     title: "Exceeded my expectations",
     img: "/img/client/02.jpg",
-    body: "Ethervest's real estate investment services have exceeded my expectations. Their team provided me with excellent guidance on investing in different types of properties, and they have helped me maximize my returns. ",
+    body: "Carissa Barney goes above and beyond to ensure my family's financial well-being. She helped us develop a comprehensive estate plan that addresses all our needs. Her knowledge and dedication are unmatched.",
     author: "Ruki M",
     rating: 5,
   },
   {
     title: "Wish I could give 6 stars",
     img: "/img/rose.png",
-    body: "I love that Ethervest makes it easy to monitor my investments in real-time. The website is always updating with the latest market information, which helps me make informed investment decisions.",
+    body: "I highly recommend Carissa Barney for business planning. She helped me strategize and optimize my business finances, resulting in improved profitability and growth. Her insights have been instrumental in my success.",
     author: "Rose k",
     rating: 5,
   },
   {
     title: "Excellent Support",
     img: "/img/Markus Wagner.jpg",
-    body: "Ethervest's team is responsive, professional, and committed to helping me achieve my investment goals",
+    body: "Carissa Barney has a deep understanding of philanthropy. With her guidance, I was able to align my charitable giving with my values and make a meaningful impact in my community. She truly cares about making a difference.",
     author: "Markus Wagner",
     rating: 3,
   },
   {
     title: "No more debt!",
     img: "/img/caroline.png",
-    body: "I appreciate Ethervest's transparency and dedication to helping me achieve my real estate investment goals.",
+    body: "Carissa Barney's financial wellness program has been a game-changer for me. She provided valuable insights and resources to improve my financial literacy and make smarter financial decisions. I am now more in control of my finances.",
     author: "Caroline M",
     rating: 4,
   },
   {
     title: "I’m 13 and I’m rich.",
     img: "/img/client/03.jpg",
-    body: "The real Estate investment option on Ethervest is a great way to earn steady returns while minimizing risk. I love that I can invest in a dollar-denominated fund and earn higher yields than I would with a regular savings account.",
+    body: "Carissa Barney is a trusted advisor who takes the time to understand my unique financial situation. She helped me navigate complex investment options and provided me with a clear roadmap to achieve my financial goals.",
     author: "Micheal Lin",
     rating: 5,
   },
   {
     title: "Inbuilt Porfolio Managment",
     img: "/img/joe.png",
-    body: "I love how Ethervest allows me to diversify my portfolio with a variety of investment options. It's great to have everything in one place",
+    body: "Carissa Barney's knowledge and expertise in wealth management are second to none. She consistently provides me with valuable insights and recommendations that have helped me grow my wealth. I trust her implicitly with my financial decisions",
     author: "Joe Mc",
     rating: 5,
   },
   {
     title: "Safe and Secure",
     img: "/img/client/01.jpg",
-    body: "Ethervest has exceeded my expectations with its range of investment options and user-friendly interface. It's the perfect platform for anyone interested in investing.",
+    body: "Carissa Barney's knowledge and expertise in wealth management are second to none. She consistently provides me with valuable insights and recommendations that have helped me grow my wealth. I trust her implicitly with my financial decisions",
     author: "Miko Banks",
     rating: 4,
   },
@@ -112,19 +112,12 @@ const Testimonials = () => {
     <section className="relative md:py-24 py-16 bg-zinc-50" id="testi">
       <div className="container">
         <div className="grid grid-cols-1 pb-8 text-center">
-          <h6 className="text-orange-600 text-base font-medium uppercase mb-2">
+          <h6 className="text-[#0F8EC7] text-base font-medium uppercase mb-2">
             Testimonial
           </h6>
           <h3 className="mb-4 md:text-2xl text-xl font-medium">
             Client&apos;s Review
           </h3>
-
-          <p className="text-slate-400 max-w-xl mx-auto">
-            At Ethervest, our clients&apos; success is our top priority, and we
-            are proud of the positive feedback we&apos;ve received from those
-            we&apos;ve worked with. Here are some testimonials from our
-            satisfied clients
-          </p>
         </div>
 
         <div className="grid grid-cols-1 mt-8 relative">
@@ -143,7 +136,7 @@ const Testimonials = () => {
                     <p className="text-base text-slate-500">{body}</p>
 
                     <div>
-                      <span className="text-orange-600 block mb-1">
+                      <span className="text-[#0F8EC7] block mb-1">
                         {author}
                       </span>
                       <span className=" flex justify-center lg:justify-start">
