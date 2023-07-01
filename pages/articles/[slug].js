@@ -2,10 +2,11 @@ import Image from "next/image";
 import React from "react";
 import { getNeededInfo } from "../../utils/settings";
 import axios from "axios";
+import LandingLayout from "../../components/landing-layout/LandingLayout";
 const social = [
   {
     name: "Facebook",
-    href: "https://m.facebook.com/Data2Bots",
+    href: "https://www.facebook.com/carissa.a.barney/",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -18,7 +19,7 @@ const social = [
   },
   {
     name: "Twitter",
-    href: "https://twitter.com/data2bots",
+    href: "#",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -27,7 +28,7 @@ const social = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/company/data2bots/",
+    href: "https://www.linkedin.com/in/carissa-barney/",
     icon: (props) => (
       <svg
         stroke="currentColor"
@@ -43,7 +44,7 @@ const social = [
   },
   {
     name: "Mail",
-    href: "https://www.linkedin.com/company/data2bots/",
+    href: "mailto:advisor.carissabarney@gmail.com",
     icon: (props) => (
       <svg
         width="21"
@@ -99,59 +100,65 @@ export const getServerSideProps = async (ctx) => {
 
 const BlogPage = ({ article }) => {
   return (
-    <div className=" container">
-      <div className="px-4 md:px-8 lg:px-16">
-        <div className=" relative w-full h-[261.81px]">
-          <Image
-            src={article.image}
-            quality={100}
-            className=" object-cover object-center"
-            fill
-          />
-        </div>
-        <div className=" flex justify-center">
-          <div className=" lg:mx-28 md:mx-12 w-full pt-[33px] px-[40px] -translate-y-14 bg-white">
-            <h5 className=" text-xs text-[#187ABA] mb-[7px] font-semibold">
-              {"Wealth Management".toUpperCase()}
-            </h5>
-            <h1 className=" font-inter text-[35px] font-bold leading-[44px] text-[#333333] pr-[25%]">
-              {article.title}
-            </h1>
-            <small className=" font-medium">Apr 20, 2023</small>
-            <p className=" text-[#666666] mt-[13px] mb-[19px] text-base">
-              Your retirement has the potential to be the most fulfilling period
-              of your life–but you need to have a plan for your time as well as
-              your finances.
-            </p>
-            <div className=" flex">
-              <div className="pr-3 py-2 border-r border-r-[#A7A4A4]">
-                <img
-                  src="https://www.morganstanley.com/etc.clientlibs/msdotcomr4/clientlibs/clientlib-site/resources/icons/black/ms-icon-share.svg"
-                  className=" w-[21px] h-[15px]"
-                />
+    <div className="bg-white">
+      <div className=" container">
+        <div className="px-4 md:px-8 lg:px-16">
+          <div className=" relative w-full h-[261.81px]">
+            <Image
+              src={article.image}
+              quality={100}
+              className=" object-cover object-center"
+              fill
+            />
+          </div>
+          <div className=" flex justify-center">
+            <div className=" lg:mx-28 md:mx-12 w-full pt-[33px] sm:px-[40px] -translate-y-14 bg-white">
+              <h5 className=" text-xs text-[#187ABA] mb-[7px] font-semibold">
+                {"Wealth Management".toUpperCase()}
+              </h5>
+              <h1 className=" font-inter text-[35px] font-bold leading-[44px] text-[#333333] pr-[25%]">
+                {article.title}
+              </h1>
+              <small className=" font-medium">Apr 20, 2023</small>
+              <p className=" text-[#666666] mt-[13px] mb-[19px] text-base">
+                Your retirement has the potential to be the most fulfilling
+                period of your life–but you need to have a plan for your time as
+                well as your finances.
+              </p>
+              <div className=" flex">
+                <div className="pr-3 py-2 border-r border-r-[#A7A4A4]">
+                  <img
+                    src="https://www.morganstanley.com/etc.clientlibs/msdotcomr4/clientlibs/clientlib-site/resources/icons/black/ms-icon-share.svg"
+                    className=" w-[21px] h-[15px]"
+                  />
+                </div>
+                {social.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-[#187ABA] ml-4"
+                  >
+                    <span className="sr-only">{item.name}</span>
+                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  </a>
+                ))}
               </div>
-              {social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-[#187ABA] ml-4"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
-              ))}
             </div>
           </div>
-        </div>
-        <div className=" flex justify-center">
-          <div
-            className=" lg:mx-28 md:mx-12 w-full pt-[33px] mt-96 bg-white"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          ></div>
+          <div className=" flex justify-center">
+            <div
+              className=" lg:mx-28 md:mx-12 w-full pt-[33px] mt-72 bg-white mb-36"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            ></div>
+          </div>
         </div>
       </div>
     </div>
   );
+};
+
+BlogPage.getLayout = function getLayout(page) {
+  return <LandingLayout>{page}</LandingLayout>;
 };
 
 export default BlogPage;

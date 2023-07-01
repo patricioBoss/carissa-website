@@ -164,7 +164,7 @@ const MyLocation = (
           Palm Harbor, FL 34685
           <br />
           <br />
-          Direct: (813) 818-1720
+          Direct: +1(424) 279-3916
         </p>
       </div>
       <div className=" md:flex-1 md:pl-10">

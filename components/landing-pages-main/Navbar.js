@@ -223,11 +223,13 @@ const Navbar = () => {
             className=" h-[24px] w-[24px] bg-[url(/img/menue-bar.svg)] bg-no-repeat bg-center self-center inline md:hidden"
             onClick={() => setOpen(true)}
           />
-          <img
-            className="ml-[1rem] md:ml-0 h-[29px] my-[20px]"
-            src="/logo/logo.svg"
-            alt="logo"
-          />
+          <Link href={"/"}>
+            <img
+              className="ml-[1rem] md:ml-0 h-[29px] my-[20px]"
+              src="/logo/logo.svg"
+              alt="logo"
+            />
+          </Link>
         </div>
         <div className="hidden md:block">
           <ul className=" flex text-black gap-4">
