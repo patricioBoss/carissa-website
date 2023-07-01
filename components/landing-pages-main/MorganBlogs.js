@@ -65,7 +65,7 @@ const BlogTemplate = ({ article, index }) => (
         <h3 className=" text-[24px] font-bold mb-[30px] ">
           {article.main.title}
         </h3>
-        <p className=" text-base">{article.main.exp}</p>
+        <p className=" text-base">{article.main?.exp}</p>
       </div>
       <div
         className={
