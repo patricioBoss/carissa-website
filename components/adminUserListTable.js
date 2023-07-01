@@ -25,12 +25,11 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "@mui/material";
-import Iconify from "./Iconify";
 import MenuPopover from "./MenuPopover";
 import { CgMoreVertical } from "react-icons/cg";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import DeleteUserModal from "./DeleteUserModal";
-import UserDetailsModal from "./userDetailsModal";
+import DeleteUserModal from "./DeleteUserModal.jsx";
+import UserDetailsModal from "./userDetailsModal.jsx";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
