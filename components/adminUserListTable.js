@@ -29,7 +29,7 @@ import MenuPopover from "./MenuPopover";
 import { CgMoreVertical } from "react-icons/cg";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import DeleteUserModal from "./DeleteUserModal.jsx";
-import UserDetailsModal from "./userDetailsModal.jsx";
+import UserDetailsModal from "./UserDetailsModal";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
