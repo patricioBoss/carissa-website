@@ -4,7 +4,7 @@ import dbConnect from "../utils/dbConnect";
 
 function adminPageAuth(handler) {
   return withSessionSsr(async (context) => {
-    if (context.req.session.user) {
+    if (context.req?.session?.user) {
       await dbConnect();
       const userId = context.req.session.user._id;
       const user = await User.findById(userId)

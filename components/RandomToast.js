@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { fCurrency } from "../utils/formatNumber";
 
 function randomIntFromInterval(min, max) {
   // min and max included
@@ -24,7 +25,7 @@ const customToast = (name, state, amount) => (t) =>
         </h3>
         <p className=" text-base">
           {name} from {state} just earned{" "}
-          <span className=" font-semibold">${amount}</span>{" "}
+          <span className=" font-semibold">{fCurrency(amount)}</span>{" "}
         </p>
       </div>
     </div>

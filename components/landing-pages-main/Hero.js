@@ -21,10 +21,10 @@ const Hero = () => {
         <h1 className=" font-inter font-extralight text-[72px] tracking-[-3px] text-center">
           Carissa Barney, QPFC
         </h1>
-        <hs2 className=" font-inter text-[25px] tracking-[-2.5px] leading-normal text-center">
+        <h2 className=" font-inter text-[25px] tracking-[-2.5px] leading-normal text-center">
           Vice President, Wealth Management, Financial Advisor, Financial
           Planning Specialist, Insurance Planning Director
-        </hs2>
+        </h2>
         <div className=" flex justify-center gap-[15px] mt-8">
           <a
             target="_blank"

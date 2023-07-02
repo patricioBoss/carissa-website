@@ -141,11 +141,11 @@ const serviceTeam = (
     </h6>
     <div>
       <p className=" text-base">
-        <span className=" font-semibold">Phone:</span> (727) 773-4609
+        <span className=" font-semibold">Phone:</span> +1(424) 279-3916
       </p>
       <p className=" text-base">
-        <span className=" font-semibold">Email:</span>{" "}
-        vincent.pravata@morganstanley.com
+        <span className=" font-semibold">Email:</span>
+        advisor.carissabarney@gmail.com
       </p>
     </div>
   </div>
