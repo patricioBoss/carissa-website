@@ -101,7 +101,10 @@ function MobileMenueSlide({ open, setOpen }) {
                             {children.length &&
                               children.map((link) => (
                                 <ul key={link.name} className="pl-5">
-                                  <li className="border-t border-t-[#E9E9E9] w-full pl-[25px] hover:bg-[#0000004c]">
+                                  <li
+                                    className="border-t border-t-[#E9E9E9] w-full pl-[25px] hover:bg-[#0000004c]"
+                                    onKeyDown={() => setOpen(false)}
+                                  >
                                     <a
                                       href={link.href}
                                       className=" text-base py-[25px] pr-[63px] block"

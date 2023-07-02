@@ -85,6 +85,10 @@ export default function MyApp(props) {
             content:
               "carissa, Barney, maria, Carissa Barney, Palm Harbor, FL (Florida), Wealth Management, Wealth Management, Financial goals, Retirement, Investing, Family planning, Business planning, Philanthropy, Financial wellness",
           },
+          {
+            name: "google-site-verification",
+            content: "zElf0lEx7sIag7jmbsi1DbGcFRRpzg0em8yY1khoLYE",
+          },
         ]}
         additionalLinkTags={[
           {
