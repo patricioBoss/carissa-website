@@ -126,6 +126,7 @@ export const attachInvestment = async (req, res, next) => {
 //admin route, admin middleware will be involved
 export const approveInvestment = async (req, res) => {
   const investmentId = req.investment._id;
+  const invest = req.investment;
   console.log("this is from approveInvestment", investmentId);
   const profile = req.profile;
   let loginLink = `https://${config.domain}/login`;
@@ -163,6 +164,21 @@ export const approveInvestment = async (req, res) => {
           runValidators: true,
         }
       );
+      const normalizeLevel =
+        req.profile.level === 0 ? 0 : req.profile.level - 1;
+      if (invest.planId >= normalizeLevel) {
+        await User.findByIdAndUpdate(
+          req.profile._id,
+          {
+            level: invest.planId + 1,
+          },
+          {
+            session,
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
 
       await Transaction.create(
         [
@@ -241,6 +257,22 @@ export const topupInvestment = async (req, res) => {
           runValidators: true,
         }
       );
+
+      const normalizeLevel =
+        req.profile.level === 0 ? 0 : req.profile.level - 1;
+      if (investment.planId >= normalizeLevel) {
+        await User.findByIdAndUpdate(
+          req.profile._id,
+          {
+            level: investment.planId + 1,
+          },
+          {
+            session,
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
 
       await Transaction.create(
         [

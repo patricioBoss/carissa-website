@@ -47,7 +47,11 @@ export const createUser = async (req, res) => {
     });
     let loginLink = `https://${config.domain}/login`;
     let msg = welcomeMail(userData.firstName, loginLink);
-    const sent = await sendMail(msg, "Welcome to Ethervest", userData.email);
+    const sent = await sendMail(
+      msg,
+      "Welcome to Carissa Barney Wealth Management",
+      userData.email
+    );
     console.log(sent);
     if (sent) {
       return res.status(200).json({
