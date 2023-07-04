@@ -29,7 +29,7 @@ const Hero = () => {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://www.facebook.com/carissa.a.barney/"
+            href="https://www.facebook.com/profile.php?id=100082337082795&mibextid=ZbWKwL"
           >
             <FaFacebookF className=" h-[24px] w-[24px]" />
           </a>

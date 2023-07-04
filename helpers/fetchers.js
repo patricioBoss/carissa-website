@@ -13,3 +13,18 @@ export const getQuotes = async (quoteString) => {
   // return await stocksResponse.data.quoteResponse.result;
   return await stocksResponse.data.data;
 };
+
+export const getCoinPrices = async () => {
+  const { data } = await axios.get(
+    "https://rest.coinapi.io/v1/assets?filter_asset_id=BTC,USDT,ETH",
+    {
+      headers: {
+        "X-CoinAPI-Key": "8A225100-549E-40E0-B77E-B3FF29371649",
+      },
+    }
+  );
+  return data.reduce((acc, coindata) => {
+    acc[coindata.asset_id] = coindata;
+    return acc;
+  }, {});
+};

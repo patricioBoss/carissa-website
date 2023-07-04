@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 const TickerTape = dynamic(
   () => import("react-ts-tradingview-widgets").then((w) => w.TickerTape),
@@ -75,62 +76,93 @@ const services = [
   "Corporate Retirement Plans",
 ];
 
-const MyStory = (
-  <div className="w-full">
-    <div className=" md:flex mt-8">
-      <div className=" md:w-3/5 pl-3 pr-4">
-        <h4 className=" text-2xl font-bold mb-[14px] mt-5">
-          My Story and Services
-        </h4>
-        <div className="relative pt-[56.25%]">
-          <iframe
-            allowfullscreen
-            className="absolute top-0 left-0 h-full border-none w-full "
-            allow="encrypted-media"
-            src="https://players.brightcove.net/644391012001/OsECwOFeq_default/index.html?videoId=6040280424001"
-          ></iframe>
-        </div>
+const MyStory = () => {
+  const [more, setMore] = useState(false);
 
-        <p className=" text-base mt-[14px]">
-          My goal is to thoroughly understand your financial needs and then
-          align the resources to help you meet or exceed them. I can help you
-          evaluate near-term concerns and plan for long-term goals, be a
-          sounding board for investment ideas, assist you in developing and
-          executing a strategy that is precisely your own and helps you meet
-          your needs.
-        </p>
+  return (
+    <div className="w-full">
+      <div className=" md:flex mt-8">
+        <div className=" md:w-3/5 pl-3 pr-4">
+          <h4 className=" text-2xl font-bold mb-[14px] mt-5">
+            My Story and Services
+          </h4>
+          <div className="relative pt-[56.25%]">
+            <iframe
+              allowfullscreen
+              className="absolute top-0 left-0 h-full border-none w-full "
+              allow="encrypted-media"
+              src="https://players.brightcove.net/644391012001/OsECwOFeq_default/index.html?videoId=6040280424001"
+            ></iframe>
+          </div>
+
+          <p className=" text-base mt-[14px]">
+            My goal is to thoroughly understand your financial needs and then
+            align the resources to help you meet or exceed them. I can help you
+            evaluate near-term concerns and plan for long-term goals, be a
+            sounding board for investment ideas, assist you in developing and
+            executing a strategy that is precisely your own and helps you meet
+            your needs.
+            <br />
+            {more && <br />}
+            {more && (
+              <span>
+                <span className=" font-semibold">Carissa Barney</span> is a
+                financial advisor based out of Palm Harbor, Florida who has 8
+                years of relevant experience. Barney is an employee of Morgan
+                Stanley. During their career, Barney has held roles at Fifth
+                Third Bank, Suntrust Bank, Suntrust Investment Services, Inc,
+                Morgan Stanley and Morgan Stanley Private Bank, National
+                Association. Barney has Series 63 and Series 66 licenses,
+                qualifying them as a securities agent, and is approved to work
+                in Florida and Texas.
+              </span>
+            )}
+            <br />
+            <span
+              className=" text-[#0F8EC7] hover:underline transition-all duration-500 flex gap-3 cursor-pointer"
+              onClick={() => setMore((x) => !x)}
+            >
+              {!more ? "About me ) read more" : "show less"}
+              {!more ? (
+                <ChevronDownIcon className=" w-4" />
+              ) : (
+                <ChevronUpIcon className=" w-4" />
+              )}
+            </span>
+          </p>
+        </div>
+        <div className=" md:w-2/5 pl-4 pr-3">
+          <h4 className=" text-2xl font-bold mb-[14px]">Services Include</h4>
+          <ul className="list-disc mt-4 pl-8">
+            {services.map((service) => (
+              <li key={service} className=" text-base mb-[6px]">
+                {service}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div className=" md:w-2/5 pl-4 pr-3">
-        <h4 className=" text-2xl font-bold mb-[14px]">Services Include</h4>
-        <ul className="list-disc mt-4 pl-8">
-          {services.map((service) => (
-            <li key={service} className=" text-base mb-[6px]">
-              {service}
-            </li>
-          ))}
-        </ul>
+      <div className="px-3">
+        <p className=" text-[#757575] my-[62px]">
+          Securities Agent: DC, WI, WA, VT, VA, UT, TX, TN, SC, RI, OH, NY, NJ,
+          NC, MI, MD, MA, LA, KY, KS, GA, FL, CO, CA, AZ, OR; General Securities
+          Representative; Investment Advisor Representative NMLS#: 841426
+        </p>
+        <div className=" border-t border-t-[#CCCCCC]">
+          <p className=" text-sm my-[32px]">
+            Check the background of Our Firm and Investment Professionals on{" "}
+            <span>
+              <a className=" text-[#0F8EC7] cursor-pointer text-base font-bold underline">
+                FINRA&apos;s BrokerCheck
+              </a>
+              *
+            </span>
+          </p>
+        </div>
       </div>
     </div>
-    <div className="px-3">
-      <p className=" text-[#757575] my-[62px]">
-        Securities Agent: DC, WI, WA, VT, VA, UT, TX, TN, SC, RI, OH, NY, NJ,
-        NC, MI, MD, MA, LA, KY, KS, GA, FL, CO, CA, AZ, OR; General Securities
-        Representative; Investment Advisor Representative NMLS#: 841426
-      </p>
-      <div className=" border-t border-t-[#CCCCCC]">
-        <p className=" text-sm my-[32px]">
-          Check the background of Our Firm and Investment Professionals on{" "}
-          <span>
-            <a className=" text-[#0F8EC7] cursor-pointer text-base font-bold underline">
-              FINRA&apos;s BrokerCheck
-            </a>
-            *
-          </span>
-        </p>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 const serviceTeam = (
   <div className="p-[1.875rem]">
     <h4 className=" text-2xl font-bold my-[1.875rem] mt-5">
@@ -218,7 +250,7 @@ const Services = () => {
             ))}
           </div>
         </div>
-        {selected === tabs[0].name && MyStory}
+        {selected === tabs[0].name && <MyStory />}
         {selected === tabs[1].name && serviceTeam}
         {selected === tabs[2].name && MyLocation}
       </div>

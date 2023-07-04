@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const navigation = [
   {
@@ -28,6 +29,7 @@ const navigation = [
 ];
 
 function MobileMenueSlide({ open, setOpen }) {
+  const router = useRouter();
   const isDesktop = useMediaQuery("(min-width:768px)");
 
   console.log("is desktop", isDesktop);
@@ -103,14 +105,26 @@ function MobileMenueSlide({ open, setOpen }) {
                                 <ul key={link.name} className="pl-5">
                                   <li
                                     className="border-t border-t-[#E9E9E9] w-full pl-[25px] hover:bg-[#0000004c]"
-                                    onKeyDown={() => setOpen(false)}
+                                    onClick={() => {
+                                      console.log("key up is clicked");
+                                      setOpen(false);
+                                    }}
                                   >
-                                    <a
-                                      href={link.href}
-                                      className=" text-base py-[25px] pr-[63px] block"
-                                    >
-                                      {link.name}
-                                    </a>
+                                    {router.pathname === "/" ? (
+                                      <a
+                                        href={link.href}
+                                        className=" text-base py-[25px] pr-[63px] block"
+                                      >
+                                        {link.name}
+                                      </a>
+                                    ) : (
+                                      <Link
+                                        href={"/" + link.href}
+                                        className=" text-base py-[25px] pr-[63px] block"
+                                      >
+                                        {link.name}
+                                      </Link>
+                                    )}
                                   </li>
                                 </ul>
                               ))}
@@ -188,6 +202,7 @@ function MobileMenueSlide({ open, setOpen }) {
   );
 }
 const Navbar = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [srolledDown, setSrolledDown] = useState(false);
   useEffect(() => {
@@ -237,14 +252,31 @@ const Navbar = () => {
         <div className="hidden md:block">
           <ul className=" flex text-black gap-4">
             <li className="after:content-[''] after:block after:w-0 after:h-[6px] w-fit after:transition-width after:bg-[#3182c1] after:duration-300 hover:after:w-full">
-              <div className=" py-[25px] text-xl font-bold cursor-pointer">
-                About
-              </div>
+              {router.pathname === "/" ? (
+                <a
+                  href="#portfolio-details"
+                  className=" py-[25px] text-xl font-bold cursor-pointer block"
+                >
+                  About
+                </a>
+              ) : (
+                <Link
+                  href="/#portfolio-details"
+                  className=" py-[25px] text-xl font-bold cursor-pointer block"
+                >
+                  About
+                </Link>
+              )}
             </li>
             <li className="after:content-[''] after:block after:w-0 after:h-[6px] w-fit after:transition-width after:bg-[#3182c1] after:duration-300 hover:after:w-full">
-              <div className=" py-[25px] text-xl font-bold cursor-pointer">
+              <a
+                href="https://wa.me/14242793916"
+                target="_blank"
+                rel="noreferrer"
+                className=" py-[25px] text-xl font-bold cursor-pointer block"
+              >
                 Contact Me
-              </div>
+              </a>
             </li>
             <li className="after:content-[''] after:block after:w-0 after:h-[6px] w-fit after:transition-width after:bg-[#3182c1] after:duration-300 hover:after:w-full">
               <div className=" group/login relative py-[25px] text-xl font-bold flex items-center cursor-pointer">

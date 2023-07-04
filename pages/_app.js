@@ -60,15 +60,15 @@ export default function MyApp(props) {
   return (
     <>
       <DefaultSeo
-        title="Carissa Barney | Wealth Management"
-        description="Carissa Barney can help you achieve your financial goals. Learn about Retirement, Investing, Family, Business Planning, Philanthropy, and Financial Wellness."
+        title="Carissa Maria Barney | Wealth Management"
+        description="Carissa Maria Barney can help you achieve your financial goals. Learn about Retirement, Investing, Family, Business Planning, Philanthropy, and Financial Wellness."
         openGraph={{
           type: "website",
           locale: "en-GB",
           url: "https://advisor.carissamariabarney.com",
-          siteName: "Carissa Barney Portfolio website",
+          siteName: "Carissa Maria Barney Portfolio website",
           profile: {
-            firstName: "Carissa",
+            firstName: "Carissa Maria Barney",
             lastName: "Barney",
             gender: "female",
           },
@@ -83,7 +83,7 @@ export default function MyApp(props) {
           {
             name: "keywords",
             content:
-              "carissa, Barney, maria, Carissa Barney, Palm Harbor, FL (Florida), Wealth Management, Wealth Management, Financial goals, Retirement, Investing, Family planning, Business planning, Philanthropy, Financial wellness",
+              "carissa, Barney, maria, Carissa Barney,Carissa Maria Barney, Palm Harbor, FL (Florida), Wealth Management, Wealth Management, Financial goals, Retirement, Investing, Family planning, Business planning, Philanthropy, Financial wellness",
           },
           {
             name: "google-site-verification",
@@ -145,14 +145,14 @@ export default function MyApp(props) {
             datePublished: "2015-05-04",
             name: "Exceeded my expectations",
             reviewBody:
-              "Carissa Barney goes above and beyond to ensure my family's financial well-being. She helped us develop a comprehensive estate plan that addresses all our needs. Her knowledge and dedication are unmatched.",
+              "Carissa Maria Barney goes above and beyond to ensure my family's financial well-being. She helped us develop a comprehensive estate plan that addresses all our needs. Her knowledge and dedication are unmatched.",
           },
           {
             author: "Wish I could give 6 stars",
             datePublished: "2016-06-15",
             name: "Rose k",
             reviewBody:
-              "I highly recommend Carissa Barney for business planning. She helped me strategize and optimize my business finances, resulting in improved profitability and growth. Her insights have been instrumental in my success.",
+              "I highly recommend Carissa Maria Barney for business planning. She helped me strategize and optimize my business finances, resulting in improved profitability and growth. Her insights have been instrumental in my success.",
             reviewRating: {
               ratingValue: "4",
             },

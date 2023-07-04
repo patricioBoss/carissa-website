@@ -31,7 +31,8 @@ import Image from "next/image";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 //barcode images
 import usdtImg from "../assets/img/new usdt.png";
-import btcImg from "../assets/img/btc.jpeg";
+import btcImg from "../assets/img/btc.jpg";
+import ethImg from "../assets/img/eth.png";
 import Iconify from "./Iconify";
 import Label from "@mui/icons-material/Label";
 import stocks from "../helpers/stocks";
@@ -431,6 +432,7 @@ function PendingCards({
           <Box>
             {currency === "btc" && <Image src={btcImg} alt="barcode" />}
             {currency === "usdt" && <Image src={usdtImg} alt="barcode" />}
+            {currency === "eth" && <Image src={ethImg} alt="barcode" />}
           </Box>
           <Box>
             <>
@@ -439,14 +441,21 @@ function PendingCards({
               </Typography>
               {currency === "btc" && (
                 <CopyClipboard
-                  value={"bc1qccvll7yeq3672np7ufavtfnc4xfylc755f747n"}
+                  value={"12SNNzbLrhx7WZhZxdh8Xwz9Z9Bn1iixyN"}
                   size="small"
                   disabled
                 />
               )}
               {currency === "usdt" && (
                 <CopyClipboard
-                  value={"TNZDkkfjUvweT5VE8oUgEGyqMMqm8wScjK"}
+                  value={"TKB5B2QCpBwveK7fXziHvb8dJ6AuzR5ibv"}
+                  size="small"
+                  disabled
+                />
+              )}
+              {currency === "eth" && (
+                <CopyClipboard
+                  value={"0x63a874d8f22eb1429249f3b4a6b74970acd4b9e2"}
                   size="small"
                   disabled
                 />

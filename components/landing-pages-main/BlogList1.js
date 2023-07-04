@@ -101,7 +101,6 @@ const BlogTemplate = ({ article, index }) => (
 );
 
 const BlogList1 = ({ list }) => {
-  console.log({ list });
   return (
     <div id="thought-list" className=" container my-[45px]">
       {list.map((article, index) => (

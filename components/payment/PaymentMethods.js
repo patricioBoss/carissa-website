@@ -36,6 +36,13 @@ const PAYMENT_OPTIONS = [
       "https://pipsville-bucket.s3.us-west-004.backblazeb2.com/btc-sm0.svg",
     ],
   },
+  {
+    value: "eth",
+    title: "Pay with Ethereum",
+    icons: [
+      "https://f004.backblazeb2.com/file/pipsville-bucket/eth-sm0-svg.svg",
+    ],
+  },
 ];
 
 const OptionStyle = styled(Paper)(({ theme }) => ({

@@ -6,7 +6,8 @@ import LandingLayout from "../../components/landing-layout/LandingLayout";
 const social = [
   {
     name: "Facebook",
-    href: "https://www.facebook.com/carissa.a.barney/",
+    href: (title, url) =>
+      `https://www.facebook.com/share.php?u=${url}&title=${title}`,
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -19,7 +20,7 @@ const social = [
   },
   {
     name: "Twitter",
-    href: "#",
+    href: (title, url) => `https://twitter.com/share?url=${url}`,
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -28,7 +29,9 @@ const social = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/carissa-barney/",
+    href: (title, url) =>
+      `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`,
+
     icon: (props) => (
       <svg
         stroke="currentColor"
@@ -44,7 +47,8 @@ const social = [
   },
   {
     name: "Mail",
-    href: "mailto:advisor.carissabarney@gmail.com",
+    href: (title, url) =>
+      `email:?subject=${title}&body=Checkout the update on ${url}`,
     icon: (props) => (
       <svg
         width="21"
@@ -76,6 +80,9 @@ const social = [
 ];
 
 export const getServerSideProps = async (ctx) => {
+  const request = ctx.req;
+  const host = ctx.req.headers.host;
+  const url = ctx.req.url;
   try {
     const { data } = await axios({
       baseURL: "https://bd-piano-live.mystagingwebsite.com",
@@ -89,6 +96,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         article: getNeededInfo(data[0]),
+        url: host + url,
       },
     };
   } catch (err) {
@@ -98,7 +106,7 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-const BlogPage = ({ article }) => {
+const BlogPage = ({ article, url }) => {
   return (
     <div className="bg-white">
       <div className=" container">
@@ -135,7 +143,11 @@ const BlogPage = ({ article }) => {
                 {social.map((item) => (
                   <a
                     key={item.name}
-                    href={item.href}
+                    href={item.href(
+                      encodeURIComponent(article.title),
+                      encodeURIComponent(url)
+                    )}
+                    target="_new"
                     className="text-[#187ABA] ml-4"
                   >
                     <span className="sr-only">{item.name}</span>

@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 import serializeFields from "../../../helpers/serialize";
 import Investment from "../../../models/investment.model";
 import { useState } from "react";
-import { getQuotes } from "../../../helpers/fetchers";
+import { getCoinPrices, getQuotes } from "../../../helpers/fetchers";
 
 // ----------------------------------------------------------------------
 
@@ -59,6 +59,8 @@ async function handler({ req }) {
     plan: plans[x.planId],
   }));
 
+  let cyptoDetails = await getCoinPrices();
+  console.log({ cyptoDetails });
   return {
     props: {
       user,
