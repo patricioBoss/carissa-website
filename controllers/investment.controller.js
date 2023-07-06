@@ -187,7 +187,7 @@ export const approveInvestment = async (req, res) => {
           {
             amount: investment.capital,
             investmentId,
-            currentBalance: referUser.accountBalance,
+            currentBalance: req.profile.accountBalance,
             type: "investment",
             userId: req.profile._id,
           },
@@ -196,7 +196,7 @@ export const approveInvestment = async (req, res) => {
                 {
                   amount: investment.capital,
                   investmentId,
-                  currentBalance: req.profile.accountBalance,
+                  currentBalance: referUser.accountBalance,
                   type: "referral",
                   userId: req.profile.referer,
                 },
