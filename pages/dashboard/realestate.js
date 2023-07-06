@@ -17,17 +17,19 @@ import PlanCards from "../../components/PlanCards";
 import plans from "../../helpers/plans";
 import { useState } from "react";
 import serializeFields from "../../helpers/serialize";
-import { getUserById } from "../../helpers/fetchers";
+import { getCoinPrices, getUserById } from "../../helpers/fetchers";
 import useSWR from "swr";
 import PropTypes from "prop-types";
 import pageAuth from "../../middleware/pageAuthAccess";
 // ----------------------------------------------------------------------
 async function handler({ req }) {
   const user = serializeFields(req.user);
+  let cyptoDetails = await getCoinPrices();
   console.log("this is user", user);
   return {
     props: {
       user,
+      coinList: cyptoDetails,
       fallback: {
         [`/api/user/${user._id}`]: user,
       },
@@ -39,6 +41,7 @@ async function handler({ req }) {
 }
 Plans.propTypes = {
   user: PropTypes.object,
+  coinList: PropTypes.object,
 };
 export const getServerSideProps = pageAuth(handler);
 Plans.getLayout = function getLayout(page) {
@@ -47,7 +50,7 @@ Plans.getLayout = function getLayout(page) {
 
 // ----------------------------------------------------------------------
 
-export default function Plans({ user }) {
+export default function Plans({ user, coinList }) {
   const url = `/api/user/${user._id}`;
   const { data } = useSWR(url, getUserById);
   const { themeStretch } = useSettings();
@@ -77,6 +80,7 @@ export default function Plans({ user }) {
           >
             <MenuItem value={"btc"}>BITCOIN (BTC)</MenuItem>
             <MenuItem value={"usdt"}>TETHER (USDT)</MenuItem>
+            <MenuItem value={"eth"}>{"Ethereum".toUpperCase()} (ETH)</MenuItem>
           </Select>
         </FormControl>
         <Grid mt={1} container spacing={3}>
@@ -84,7 +88,7 @@ export default function Plans({ user }) {
             <Grid key={plan.id} item xs={12} sm={6} md={4}>
               <PlanCards
                 plan={plan}
-                currency={coin}
+                currency={coinList[coin.toLocaleUpperCase()]}
                 user={data ? data : user}
               />
             </Grid>

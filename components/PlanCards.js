@@ -89,19 +89,24 @@ function PlanCards({
                 width: 32,
                 height: 32,
               }}
-              src={`/icons/${currency}.svg`}
+              src={`/icons/${currency.asset_id.toLowerCase()}.svg`}
               alt="coin icon"
             />
           </Box>
 
-          {currency === "btc" && (
+          {currency.asset_id.toLowerCase() === "btc" && (
             <Typography paddingLeft={2} align={"center"} variant="subtitle1">
-              {` Bitcoin (BTC)(24h)`}
+              {` Bitcoin (BTC)(${numeral(currency.price_usd).format("0.000")})`}
             </Typography>
           )}
-          {currency === "usdt" && (
+          {currency.asset_id.toLowerCase() === "usdt" && (
             <Typography paddingLeft={2} align={"center"} variant="subtitle1">
-              {` Tether (USDT)(24h)`}
+              {` Tether (USDT)(${numeral(currency.price_usd).format("0.000")})`}
+            </Typography>
+          )}
+          {currency.asset_id.toLowerCase() === "eth" && (
+            <Typography paddingLeft={2} align={"center"} variant="subtitle1">
+              {` Etherum (ETH)(${numeral(currency.price_usd).format("0.000")})`}
             </Typography>
           )}
         </Box>

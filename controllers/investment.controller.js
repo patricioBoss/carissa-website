@@ -166,11 +166,13 @@ export const approveInvestment = async (req, res) => {
       );
       const normalizeLevel =
         req.profile.level === 0 ? 0 : req.profile.level - 1;
+
+      // console.log({ normalizeLevel, invt: invest.planId });
       if (invest.planId >= normalizeLevel) {
         await User.findByIdAndUpdate(
           req.profile._id,
           {
-            level: invest.planId + 1,
+            level: invest.planId,
           },
           {
             session,
@@ -185,19 +187,18 @@ export const approveInvestment = async (req, res) => {
           {
             amount: investment.capital,
             investmentId,
-            currentBalance: req.profile.accountBalance,
-            type: "referral",
-            userId: req.profile.referer,
+            currentBalance: referUser.accountBalance,
+            type: "investment",
+            userId: req.profile._id,
           },
-
           ...(req.profile.referer
             ? [
                 {
                   amount: investment.capital,
                   investmentId,
-                  currentBalance: referUser.accountBalance,
-                  type: "investment",
-                  userId: req.profile._id,
+                  currentBalance: req.profile.accountBalance,
+                  type: "referral",
+                  userId: req.profile.referer,
                 },
               ]
             : []),
