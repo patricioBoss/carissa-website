@@ -64,6 +64,7 @@ async function handler({ req }) {
   return {
     props: {
       user,
+      coinList: cyptoDetails,
       pendingInvestments: allPendings,
       fallback: {
         [`/api/user/${user._id}`]: user,
@@ -85,9 +86,9 @@ Pending.getLayout = function getLayout(page) {
 Pending.propTypes = {
   user: PropTypes.object,
   pendingInvestments: PropTypes.array,
-  stocksDataList: PropTypes.array,
+  coinList: PropTypes.object,
 };
-export default function Pending({ user, pendingInvestments }) {
+export default function Pending({ user, pendingInvestments, coinList }) {
   const [investments] = useState(pendingInvestments);
   console.log({ investments });
   const { themeStretch } = useSettings();
@@ -102,7 +103,11 @@ export default function Pending({ user, pendingInvestments }) {
               {!!investments.length &&
                 investments.map((x) => (
                   <Grid key={x._id} item xs={12} sm={6} md={4}>
-                    <PendingCards investment={x} user={user} />
+                    <PendingCards
+                      investment={x}
+                      user={user}
+                      coin={coinList[x.currency.toUpperCase()]}
+                    />
                   </Grid>
                 ))}
             </Grid>

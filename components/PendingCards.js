@@ -30,9 +30,9 @@ import Image from "next/image";
 //paypal
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 //barcode images
-import usdtImg from "../assets/img/new usdt.png";
+import usdtImg from "../assets/img/usdt.jpg";
 import btcImg from "../assets/img/btc.jpg";
-import ethImg from "../assets/img/eth.png";
+import ethImg from "../assets/img/eth.jpg";
 import Iconify from "./Iconify";
 import Label from "@mui/icons-material/Label";
 import stocks from "../helpers/stocks";
@@ -76,8 +76,9 @@ function PendingCards({
     type,
   },
   user,
+  coin,
 }) {
-  console.log("pending id", _id);
+  console.log("pending id", _id, coin);
   console.log("these are the details", _id, name, capital, currency, stock);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [transactionId, setTransactionId] = useState("");
@@ -372,7 +373,6 @@ function PendingCards({
           }}
         >
           <Box
-            mb={1}
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -393,16 +393,9 @@ function PendingCards({
               </Box>
               <Typography paddingLeft={2} align={"center"} variant="subtitle2">
                 {`${
-                  type.includes("stock")
-                    ? stock.displayName?.toUpperCase()
-                    : "Real Estate"
+                  type.includes("stock") ? stock.displayName : "Real Estate"
                 }`}
-                <br />
-                {`${
-                  stock.financialCurrency
-                    ? `(${stock.financialCurrency ?? ""})`
-                    : ""
-                }${capitalCase(name)} Plan`}
+                {` ${capitalCase(name)} Plan`}
               </Typography>
             </Box>
             <Box
@@ -425,6 +418,13 @@ function PendingCards({
           <Typography align="center" variant="h5">{`Deposit: ${numeral(
             capital
           ).format("0.00")} USD`}</Typography>
+          <Typography
+            align="center"
+            variant="h6"
+            color={"primary"}
+          >{`Deposit: ${numeral(capital / coin.price_usd).format("0.000000")} ${
+            coin.asset_id
+          }`}</Typography>
 
           <Typography align="center" variant="body2" color={"primary"}>
             Make payment to the Address below

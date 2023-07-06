@@ -75,6 +75,7 @@ export default function ValidationModal({ open, setOpen, user }) {
         setLoading(false);
 
         toast.success(`ID card snapshoot uploaded successfully`);
+        setOpen(false);
       })
       .catch((err) => {
         // console.log(err.response?.data.message);

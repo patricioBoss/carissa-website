@@ -39,6 +39,11 @@ function AccValidationBlock({ handleOpen, user }) {
               Now you have access to all features of the platform.
             </Alert>
           </>
+        ) : user?.IdImg ? (
+          <Alert severity="warning">
+            <AlertTitle> Verification Processing</AlertTitle>
+            Only verified users have access to platform specific features.
+          </Alert>
         ) : (
           <Alert severity="error">
             <AlertTitle>Not Verified</AlertTitle>
