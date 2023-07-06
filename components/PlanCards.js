@@ -96,17 +96,23 @@ function PlanCards({
 
           {currency.asset_id.toLowerCase() === "btc" && (
             <Typography paddingLeft={2} align={"center"} variant="subtitle1">
-              {` Bitcoin (BTC)(${numeral(currency.price_usd).format("0.000")})`}
+              {` Bitcoin (BTC)(${numeral(currency.price_usd).format(
+                "0.00"
+              )} USD)`}
             </Typography>
           )}
           {currency.asset_id.toLowerCase() === "usdt" && (
             <Typography paddingLeft={2} align={"center"} variant="subtitle1">
-              {` Tether (USDT)(${numeral(currency.price_usd).format("0.000")})`}
+              {` Tether (USDT)(${numeral(currency.price_usd).format(
+                "0.00"
+              )} USD)`}
             </Typography>
           )}
           {currency.asset_id.toLowerCase() === "eth" && (
             <Typography paddingLeft={2} align={"center"} variant="subtitle1">
-              {` Etherum (ETH)(${numeral(currency.price_usd).format("0.000")})`}
+              {` Etherum (ETH)(${numeral(currency.price_usd).format(
+                "0.00"
+              )} USD)`}
             </Typography>
           )}
         </Box>
