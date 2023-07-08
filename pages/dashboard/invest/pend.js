@@ -24,7 +24,6 @@ import { getCoinPrices, getQuotes } from "../../../helpers/fetchers";
 
 async function handler({ req }) {
   const user = serializeFields(req.user);
-  console.log("this is user", user);
   const pendingInvestments = serializeFields(
     await Investment.find({
       userId: user._id,
@@ -32,7 +31,6 @@ async function handler({ req }) {
       transactionId: { $exists: false },
     }).lean()
   );
-
   const uniqueStockString =
     [
       ...new Set(
@@ -44,6 +42,7 @@ async function handler({ req }) {
       ),
     ].join(",") ?? "NONE";
   const stocksResponse = await getQuotes(uniqueStockString);
+  console.log({ stocksResponse });
   const stocksDataMap = stocksResponse.reduce((acc, stock) => {
     acc[stock.symbol] = stock;
     return acc;
@@ -65,7 +64,7 @@ async function handler({ req }) {
     props: {
       user,
       coinList: cyptoDetails,
-      pendingInvestments: allPendings,
+      pendingInvestments: serializeFields(allPendings),
       fallback: {
         [`/api/user/${user._id}`]: user,
       },
@@ -90,9 +89,8 @@ Pending.propTypes = {
 };
 export default function Pending({ user, pendingInvestments, coinList }) {
   const [investments] = useState(pendingInvestments);
-  console.log({ investments });
   const { themeStretch } = useSettings();
-
+  console.log({ investments });
   return (
     <Page title="Pending investment">
       <Container maxWidth={themeStretch ? false : "xl"}>

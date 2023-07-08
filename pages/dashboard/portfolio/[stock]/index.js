@@ -110,11 +110,11 @@ export default function Plans({ user, stockData, quoteData }) {
           </span>
         </Typography>
         <Grid mt={1} container spacing={3}>
-          {plans.map((plan) => (
+          {plans.map((plan, index) => (
             <Grid key={plan.id} item xs={12} sm={6} md={4}>
               <StockPlanCards
                 setDetails={setPayDetails}
-                plan={plan}
+                plan={{ ...plan, id: index }}
                 handleOpen={handleOpen}
                 stockData={stockData}
                 user={data ? data : user}

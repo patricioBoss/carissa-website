@@ -8,8 +8,6 @@ export const getQuotes = async (quoteString) => {
   // const url = `/finance/quote?symbols=${quoteString}`;
   const url = `/yahooapi/quotes?symbols=${quoteString}`;
   const stocksResponse = await request.get(url);
-
-  console.log("request", stocksResponse);
   // return await stocksResponse.data.quoteResponse.result;
   return await stocksResponse.data.data;
 };
