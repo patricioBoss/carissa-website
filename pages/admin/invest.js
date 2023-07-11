@@ -25,20 +25,21 @@ Home.getLayout = function getLayout(page) {
 const handler = async (ctx) => {
   // await dbConnect();
   const { query } = ctx;
-  const page = query.page || 1;
+  const page = query.page ?? 1;
   const pageSize = 20;
   const invtList = serializeFields(
     await Investment.find({})
-      .skip(pageSize * (page - 1))
+      .skip(pageSize * (parseInt(page) - 1))
       .limit(pageSize)
       .populate({ path: "userId", select: "email _id" })
       .lean(true)
   );
-  console.log("this is all investments", invtList);
+  const investmentCount = await Investment.find({}).count();
+  console.log("this is all investments", { investmentCount, page });
   return {
     props: {
       invtList,
-      paginationCount: Math.ceil(invtList.length / pageSize),
+      paginationCount: Math.ceil(investmentCount / pageSize),
     },
   };
 };
@@ -66,7 +67,7 @@ export default function Home({ invtList, paginationCount }) {
   return (
     <Page title="adminUser">
       <Container maxWidth={themeStretch ? false : "xl"}>
-        <AdminInvestmentListtable rows={invtList} />
+        <AdminInvestmentListtable rows={invtList} key={100 * Math.random()} />
         <div className="pt-6">
           <Pagination
             defaultPage={Number(router.query?.page) || 1}

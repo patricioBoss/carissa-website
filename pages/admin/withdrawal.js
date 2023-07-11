@@ -33,11 +33,12 @@ const handler = async (ctx) => {
       .populate({ path: "userId", select: "email _id" })
       .lean(true)
   );
+  const withDrawalCount = await Withdrawal.count();
   console.log("this is all withdrawals", withdrawalList);
   return {
     props: {
       withdrawalList,
-      paginationCount: Math.ceil(withdrawalList.length / pageSize),
+      paginationCount: Math.ceil(withDrawalCount / pageSize),
     },
   };
 };
@@ -66,7 +67,7 @@ export default function Home({ withdrawalList, paginationCount }) {
   return (
     <Page title="adminUser">
       <Container maxWidth={themeStretch ? false : "xl"}>
-        <AdminWithdrawalTable rows={withdrawalList} />
+        <AdminWithdrawalTable rows={withdrawalList} key={100 * Math.random()} />
         <div className="pt-6">
           <Pagination
             defaultPage={Number(router.query?.page) || 1}

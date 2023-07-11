@@ -135,29 +135,6 @@ export default function MyApp(props) {
             ],
           },
         ]}
-        rating={{
-          ratingValue: "4.5",
-          ratingCount: "4000",
-        }}
-        review={[
-          {
-            author: "Ruki M",
-            datePublished: "2015-05-04",
-            name: "Exceeded my expectations",
-            reviewBody:
-              "Carissa Maria Barney goes above and beyond to ensure my family's financial well-being. She helped us develop a comprehensive estate plan that addresses all our needs. Her knowledge and dedication are unmatched.",
-          },
-          {
-            author: "Wish I could give 6 stars",
-            datePublished: "2016-06-15",
-            name: "Rose k",
-            reviewBody:
-              "I highly recommend Carissa Maria Barney for business planning. She helped me strategize and optimize my business finances, resulting in improved profitability and growth. Her insights have been instrumental in my success.",
-            reviewRating: {
-              ratingValue: "4",
-            },
-          },
-        ]}
       />
       <Script src="/js/easy_background.js" strategy="beforeInteractive" />
       <Script strategy="beforeInteractive" src="/js/feather.min.js" />
