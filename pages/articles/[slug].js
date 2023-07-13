@@ -3,6 +3,7 @@ import React from "react";
 import { getNeededInfo } from "../../utils/settings";
 import axios from "axios";
 import LandingLayout from "../../components/landing-layout/LandingLayout";
+import { NextSeo } from "next-seo";
 const social = [
   {
     name: "Facebook",
@@ -108,64 +109,82 @@ export const getServerSideProps = async (ctx) => {
 
 const BlogPage = ({ article, url }) => {
   return (
-    <div className="bg-white">
-      <div className=" container">
-        <div className="px-4 md:px-8 lg:px-16">
-          <div className=" relative w-full h-[261.81px]">
-            <Image
-              src={article.image}
-              quality={100}
-              className=" object-cover object-center"
-              fill
-            />
-          </div>
-          <div className=" flex justify-center">
-            <div className=" lg:mx-28 md:mx-12 w-full pt-[33px] sm:px-[40px] -translate-y-14 bg-white">
-              <h5 className=" text-xs text-[#187ABA] mb-[7px] font-semibold">
-                {"Wealth Management".toUpperCase()}
-              </h5>
-              <h1 className=" font-inter text-[35px] font-bold leading-[44px] text-[#333333] pr-[25%]">
-                {article.title}
-              </h1>
-              <small className=" font-medium">Apr 20, 2023</small>
-              <p className=" text-[#666666] mt-[13px] mb-[19px] text-base">
-                Your retirement has the potential to be the most fulfilling
-                period of your life–but you need to have a plan for your time as
-                well as your finances.
-              </p>
-              <div className=" flex">
-                <div className="pr-3 py-2 border-r border-r-[#A7A4A4]">
-                  <img
-                    src="https://www.morganstanley.com/etc.clientlibs/msdotcomr4/clientlibs/clientlib-site/resources/icons/black/ms-icon-share.svg"
-                    className=" w-[21px] h-[15px]"
-                  />
+    <>
+      <NextSeo
+        title={article.title}
+        description={article.excerpt}
+        openGraph={{
+          title: article.title,
+          description: article.excerpt,
+          url: `https://www.advisor.carissamariabarney.com/articles/${article.slug}`,
+          type: "article",
+          article: {
+            publishedTime: "2017-06-21T23:04:13Z",
+            modifiedTime: "2018-01-21T18:04:43Z",
+            tags: ["cryptocurrency", "stocks", "investment"],
+          },
+          images: [article.image],
+        }}
+      />
+      <div className="bg-white">
+        <div className=" container">
+          <div className="px-4 md:px-8 lg:px-16">
+            <div className=" relative w-full h-[261.81px]">
+              <Image
+                src={article.image}
+                quality={100}
+                className=" object-cover object-center"
+                fill
+              />
+            </div>
+            <div className=" flex justify-center">
+              <div className=" lg:mx-28 md:mx-12 w-full pt-[33px] sm:px-[40px] -translate-y-14 bg-white">
+                <h5 className=" text-xs text-[#187ABA] mb-[7px] font-semibold">
+                  {"Wealth Management".toUpperCase()}
+                </h5>
+                <h1 className=" font-inter text-[35px] font-bold leading-[44px] text-[#333333] pr-[25%]">
+                  {article.title}
+                </h1>
+                <small className=" font-medium">Apr 20, 2023</small>
+                <p className=" text-[#666666] mt-[13px] mb-[19px] text-base">
+                  Your retirement has the potential to be the most fulfilling
+                  period of your life–but you need to have a plan for your time
+                  as well as your finances.
+                </p>
+                <div className=" flex">
+                  <div className="pr-3 py-2 border-r border-r-[#A7A4A4]">
+                    <img
+                      src="https://www.morganstanley.com/etc.clientlibs/msdotcomr4/clientlibs/clientlib-site/resources/icons/black/ms-icon-share.svg"
+                      className=" w-[21px] h-[15px]"
+                    />
+                  </div>
+                  {social.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href(
+                        encodeURIComponent(article.title),
+                        encodeURIComponent(url)
+                      )}
+                      target="_new"
+                      className="text-[#187ABA] ml-4"
+                    >
+                      <span className="sr-only">{item.name}</span>
+                      <item.icon className="h-6 w-6" aria-hidden="true" />
+                    </a>
+                  ))}
                 </div>
-                {social.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href(
-                      encodeURIComponent(article.title),
-                      encodeURIComponent(url)
-                    )}
-                    target="_new"
-                    className="text-[#187ABA] ml-4"
-                  >
-                    <span className="sr-only">{item.name}</span>
-                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                  </a>
-                ))}
               </div>
             </div>
-          </div>
-          <div className=" flex justify-center">
-            <div
-              className=" lg:mx-28 md:mx-12 w-full pt-[33px] mt-72 bg-white mb-36"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            ></div>
+            <div className=" flex justify-center">
+              <div
+                className=" lg:mx-28 md:mx-12 w-full pt-[33px] mt-72 bg-white mb-36"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
