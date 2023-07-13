@@ -92,8 +92,22 @@ async function handler({ req }) {
     }
     // `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
   );
-  const stocksDataList = await stocksResponse.data.data;
 
+  const stocksDataArray = await stocksResponse.data.data;
+
+  const stockListArray = Object.keys(stocks).map((symbol) =>
+    axios.get(
+      `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?metrics=high&interval=30m&range=1d`
+    )
+  );
+  const stockQuoteList = await Promise.all(stockListArray);
+
+  let stocksDataList = stocksDataArray.map((stock, idx) => {
+    return {
+      ...stock,
+      ...stockQuoteList[idx].data.chart.result[0].meta,
+    };
+  });
   return {
     props: {
       user,

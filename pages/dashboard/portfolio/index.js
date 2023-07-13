@@ -39,10 +39,10 @@ async function handler({ req }) {
   let stockDataQuote = stocksDataList.map((stock, idx) => {
     console.log(
       stock.symbol,
-      stockQuoteList[idx].data.chart.result[0].meta.symbol
+      JSON.stringify(stockQuoteList[idx].data, null, 2)
     );
     return {
-      data: stock,
+      data: { ...stock, ...stockQuoteList[idx].data.chart.result[0].meta },
       quote: stockQuoteList[idx].data.chart.result[0].indicators.quote[0],
     };
   });
