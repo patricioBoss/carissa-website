@@ -2,7 +2,7 @@ import React from "react";
 const social = [
   {
     name: "Facebook",
-    href: "https://www.facebook.com/carissa.a.barney/",
+    href: "https://www.facebook.com/profile.php?id=100082337082795&mibextid=ZbWKwL",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
