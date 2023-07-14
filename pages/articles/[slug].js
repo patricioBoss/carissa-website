@@ -4,6 +4,7 @@ import { getNeededInfo } from "../../utils/settings";
 import axios from "axios";
 import LandingLayout from "../../components/landing-layout/LandingLayout";
 import { NextSeo } from "next-seo";
+import config from "../../config/config";
 const social = [
   {
     name: "Facebook",
@@ -97,7 +98,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         article: getNeededInfo(data[0]),
-        url: host + url,
+        url: `www.${config.domain}` + url,
       },
     };
   } catch (err) {
