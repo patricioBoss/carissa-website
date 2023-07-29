@@ -154,7 +154,7 @@ export default function Wallet({ user }) {
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <WalletCards
-              name="btc"
+              name="eth"
               onChange={handleChange}
               price=""
               title="Etherum(ETH) Wallet"
@@ -165,7 +165,7 @@ export default function Wallet({ user }) {
                     width: 24,
                     height: 24,
                   }}
-                  src={`/icons/btc.svg`}
+                  src={`/icons/eth.svg`}
                   alt="coin icon"
                 />
               }
