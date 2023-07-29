@@ -107,7 +107,15 @@ function WithDrawCard({ user, url }) {
                   variant="outlined"
                   placeholder={"Enter wallet address"}
                 >
-                  <MenuItem value="usdt">Tether(USDT)</MenuItem>
+                  {[
+                    { value: "usdt", label: "Tether(USDT)" },
+                    { value: "btc", label: "Bitcoin(BTC)" },
+                    { value: "eth", label: "Etherum(ETH)" },
+                  ].map(({ value, label }) => (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  ))}
                 </TextField>
               </Box>
             </Grid>

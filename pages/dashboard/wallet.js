@@ -51,12 +51,14 @@ export default function Wallet({ user }) {
   const [addresses, setAddresses] = useState({
     usdt: "",
     btc: "",
+    eth: "",
   });
 
+  console.log({ data, addresses });
   useEffect(() => {
     if (data?.wallets) {
       const { wallets } = data;
-      setAddresses(wallets);
+      setAddresses({ ...wallets });
     }
   }, [data]);
 
@@ -118,7 +120,7 @@ export default function Wallet({ user }) {
               onChange={handleChange}
               price=""
               title="Tether(USDT) Wallet"
-              value={addresses.btc}
+              value={addresses.usdt}
               leadIcon={
                 <img
                   style={{
@@ -137,7 +139,26 @@ export default function Wallet({ user }) {
               onChange={handleChange}
               price=""
               title="Bitcoin(BTC) Wallet"
-              value={addresses.usdt}
+              value={addresses.btc}
+              leadIcon={
+                <img
+                  style={{
+                    width: 24,
+                    height: 24,
+                  }}
+                  src={`/icons/btc.svg`}
+                  alt="coin icon"
+                />
+              }
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={6}>
+            <WalletCards
+              name="btc"
+              onChange={handleChange}
+              price=""
+              title="Etherum(ETH) Wallet"
+              value={addresses.eth}
               leadIcon={
                 <img
                   style={{

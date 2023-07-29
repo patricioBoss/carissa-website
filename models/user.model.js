@@ -85,6 +85,9 @@ const UserSchema = new mongoose.Schema(
       btc: {
         type: String,
       },
+      eth: {
+        type: String,
+      },
     },
     TwoFA: {
       type: Boolean,
