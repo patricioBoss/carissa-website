@@ -23,7 +23,7 @@ const InvestmentSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "active", "ended"],
+      enum: ["pending", "active", "ended", "paused"],
       default: "pending",
     },
     daysCount: {

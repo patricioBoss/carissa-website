@@ -28,7 +28,7 @@ const handler = async (ctx) => {
   const page = query.page ?? 1;
   const pageSize = 20;
   const invtList = serializeFields(
-    await Investment.find({})
+    await Investment.find({ status: { $ne: "ended" } })
       .skip(pageSize * (parseInt(page) - 1))
       .limit(pageSize)
       .populate({ path: "userId", select: "email _id" })

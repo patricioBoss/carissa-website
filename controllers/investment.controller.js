@@ -86,8 +86,16 @@ export const deleteInvt = async (req, res) => {
   try {
     const invtId = req.investment._id;
     console.log(req.investment);
-    let invest = await Investment.findByIdAndDelete(invtId);
-    return response(res, 200, "deleted successfully", invest);
+    switch (req.investment.status) {
+      case "active":
+        return response(res, 400, "cannot delete active investment", null);
+      case "ended":
+        return response(res, 400, "this investment has already ended", null);
+      default: {
+        let invest = await Investment.findByIdAndDelete(invtId);
+        return response(res, 200, "deleted successfully", invest);
+      }
+    }
   } catch (err) {
     return response(res, 500, "failure", null);
   }
@@ -410,7 +418,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
     //save user
     const session = await req.db.startSession();
     let continousInvts = await Investment.find({
-      daysCount: { $lt: 4 },
+      daysCount: { $lt: 14 },
       status: "active",
     }).populate({
       path: "userId",
@@ -418,13 +426,13 @@ export const dailyAllInvestRioCheck = async (req, res) => {
     });
 
     let endingInvts = await Investment.find({
-      daysCount: 4,
+      daysCount: 14,
       status: "active",
     }).populate({
       path: "userId",
       select: "accountBalance _id",
     });
-
+    //make the last investment
     let endingTxns = endingInvts?.map(({ _id, userId, planId, capital }) => ({
       userId: userId._id,
       investmentId: _id,
@@ -434,6 +442,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
         Number(userId.accountBalance) +
         Number((plans[planId].interest / 100) * capital),
     }));
+    //balance investment equation
     let endingInvtsTxns = endingInvts?.map(
       ({ _id, userId, planId, capital }) => ({
         userId: userId._id,
@@ -446,7 +455,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
           Number(capital),
       })
     );
-
+    //create update many for ending users
     let endingUser = endingInvts?.map(({ userId, planId, capital }) => ({
       updateOne: {
         filter: { _id: userId._id },
@@ -460,6 +469,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
       },
     }));
 
+    //create transactions for continious users on the platform
     let continousTxns = continousInvts.map(
       ({ _id, userId, planId, capital }) => ({
         userId: userId._id,
@@ -471,7 +481,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
           Number((plans[planId].interest / 100) * capital),
       })
     );
-
+    //update continous users balance with int percentage
     let continousUser = continousTxns.map(({ userId, amount }) => ({
       updateOne: {
         filter: { _id: userId },
@@ -480,7 +490,7 @@ export const dailyAllInvestRioCheck = async (req, res) => {
     }));
 
     //console.log({ continousInvts, endingInvts, continousTxns, endingTxns, endingUser, continousUser, endingInvtsTxns });
-
+    //transaction session
     await session.withTransaction(async () => {
       await Transaction.create(
         [
@@ -491,12 +501,12 @@ export const dailyAllInvestRioCheck = async (req, res) => {
         { session, new: true }
       );
       await Investment.updateMany(
-        { daysCount: 29, status: "active" },
+        { daysCount: 14, status: "active" },
         { $inc: { daysCount: 1 }, status: "ended" },
         { session }
       );
       await Investment.updateMany(
-        { daysCount: { $lt: 29 }, status: "active" },
+        { daysCount: { $lt: 14 }, status: "active" },
         { $inc: { daysCount: 1 } },
         { session }
       );
